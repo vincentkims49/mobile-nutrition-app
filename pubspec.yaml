@@ -1,0 +1,62 @@
+name: recipe
+description: A new Flutter project.
+
+publish_to: 'none' 
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.18.6 <4.0.0"
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  easy_splash_screen: ^1.0.4
+  flutter_launcher_icons: ^0.11.0
+  flutter_slidable: ^1.2.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+  
+  
+
+
+  cupertino_icons: ^1.0.2
+  rename: ^2.0.1
+  intro: ^1.2.3
+  provider: ^6.0.5
+  firebase_auth: ^4.2.4
+  cloud_firestore: ^4.3.1
+  google_fonts: ^3.0.1
+  image_picker: ^0.8.6
+  firebase_storage: ^11.0.10
+  awesome_snackbar_content: ^0.1.0
+  
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  hive_generator: ^1.1.3
+  build_runner: ^2.1.11    
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "images/abblack.png"
+
+  
+
+  
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - images/
+  
+  fonts:
+    - family: ro
+      fonts:
+        - asset: fonts/Roboto-Bold.ttf
+ 
