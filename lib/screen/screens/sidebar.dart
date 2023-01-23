@@ -45,20 +45,17 @@ class Navbar extends StatelessWidget {
               ),
             ),
             decoration: BoxDecoration(
-              
               image: DecorationImage(
                 image: AssetImage(
                   'images/backs.jpg',
-                  
                 ),
                 fit: BoxFit.cover,
               ),
-              
             ),
           ),
           ListTile(
             leading: Icon(Icons.line_style_rounded),
-            title: Text("My list"),
+            title: Text("My Activity list"),
             onTap: () {
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: ((context) => ToLearn())));

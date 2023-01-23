@@ -74,6 +74,7 @@ class _HomeState extends State<Home> {
       ),
       body: Container(
         child: CustomScrollView(
+          physics: BouncingScrollPhysics(),
           slivers: [
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),

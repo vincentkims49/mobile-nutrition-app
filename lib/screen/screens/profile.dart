@@ -39,11 +39,11 @@ class Profil extends StatelessWidget {
                   future: getDocId(),
                   builder: (context, snapshot) {
                     return ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
+                      physics: NeverScrollableScrollPhysics(),
                       itemCount: docIDs.length,
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding: const EdgeInsets.all(0),
+                          padding:  EdgeInsets.all(0),
                           child: ListTile(
                             tileColor: background,
                             title: GetImage(

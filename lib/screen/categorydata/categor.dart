@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:recipe/model/food-consumed.dart';
+import 'package:recipe/screen/categorydata/detailed_meal_consumed.dart';
 import 'package:recipe/screen/categorydata/mealconsumed.dart';
 import 'package:recipe/screen/categorydata/statistics.dart';
 import 'package:recipe/screen/consent/colors.dart';
@@ -28,7 +29,7 @@ class _CategoryState extends State<Category> {
       backgroundColor: background,
       drawer: Navbar(),
       appBar: AppBar(
-        title: Center(child: Text("Get Healthy")),
+        title: Center(child: Text("Eat Healthy")),
         backgroundColor: maincolor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -37,46 +38,46 @@ class _CategoryState extends State<Category> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 10,
+      body: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView(
+            physics: BouncingScrollPhysics(),
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Today,',
+                style: TextStyle(
+                    color: Color.fromARGB(255, 75, 73, 73),
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 7),
+              Text(
+                'Wed, 18 Aug',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Container(
+                height: 260,
+                decoration: BoxDecoration(
+                  color: background,
+                  borderRadius: BorderRadius.circular(15),
                 ),
-                Text(
-                  'Today,',
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 75, 73, 73),
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 7),
-                Text(
-                  'Wed, 18 Aug',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  height: 260,
-                  decoration: BoxDecoration(
-                    color: background,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: ListView(
-                    physics: NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.only(right: 5, left: 5),
-                    children: [
-                      AspectRatio(
+                child: ListView(
+                  physics: NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.only(right: 5, left: 5),
+                  children: [
+                    InkWell(
+                      onTap: () {},
+                      child: AspectRatio(
                         aspectRatio: 1.4,
                         child: Container(
                           padding: EdgeInsets.all(50),
@@ -94,53 +95,83 @@ class _CategoryState extends State<Category> {
                             ],
                           ),
                         ),
-                      )
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              AspectRatio(
+                aspectRatio: 2,
+                child: Container(
+                  margin: EdgeInsets.only(bottom: 70, right: 10, left: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      statisticsTile(
+                        title: 'Intaked',
+                        icon: FaIcon(
+                          FontAwesomeIcons.pizzaSlice,
+                          color: Colors.orange,
+                        ),
+                        progressColor: Colors.blue,
+                        value: 589,
+                        progressPercent: 0.4,
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      statisticsTile(
+                        title: 'Burned',
+                        icon: FaIcon(
+                          FontAwesomeIcons.fire,
+                          color: Colors.red,
+                        ),
+                        progressColor: Colors.redAccent,
+                        value: 738,
+                        progressPercent: 0.7,
+                      ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                AspectRatio(
-                  aspectRatio: 2,
-                  child: Container(
-                    margin: EdgeInsets.only(bottom: 70, right: 10, left: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        statisticsTile(
-                          title: 'Intaked',
-                          icon: FaIcon(
-                            FontAwesomeIcons.pizzaSlice,
-                            color: Colors.orange,
-                          ),
-                          progressColor: Colors.blue,
-                          value: 589,
-                          progressPercent: 0.4,
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        statisticsTile(
-                          title: 'Burned',
-                          icon: FaIcon(
-                            FontAwesomeIcons.fire,
-                            color: Colors.red,
-                          ),
-                          progressColor: Colors.redAccent,
-                          value: 738,
-                          progressPercent: 0.7,
-                        ),
-                      ],
-                    ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              consumed_meal(consumedFoods: consumedFoods),
+              SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0, left: 10),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: ((context) => Detailed_meal_consumed())));
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        'View',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        ' Detailed',
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                consumed_meal(consumedFoods: consumedFoods)
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

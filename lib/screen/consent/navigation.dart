@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe/screen/consent/colors.dart';
-import 'package:recipe/screen/screens/categor.dart';
+import 'package:recipe/screen/categorydata/categor.dart';
 import 'package:recipe/screen/fav/faverite.dart';
 import 'package:recipe/screen/screens/home.dart';
 import 'package:recipe/screen/screens/profile.dart';
