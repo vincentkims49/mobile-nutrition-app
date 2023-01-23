@@ -50,7 +50,7 @@ class _SearchState extends State<Search> {
                   hintStyle: TextStyle(fontFamily: 'ro'),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide.none,
+                    borderSide: BorderSide(color: Colors.black),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.red),
@@ -61,7 +61,6 @@ class _SearchState extends State<Search> {
               ),
             ),
           ),
-         
           Expanded(
             child: recipes.isNotEmpty
                 ? ListView.builder(
@@ -78,7 +77,7 @@ class _SearchState extends State<Search> {
                           padding: const EdgeInsets.all(8.0),
                           child: ListTile(
                             title: Text(recipe.title),
-                            tileColor: Color.fromARGB(255, 238, 223, 84),
+                            tileColor: Colors.red[100],
                             onTap: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(

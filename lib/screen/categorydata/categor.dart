@@ -65,48 +65,41 @@ class _CategoryState extends State<Category> {
               SizedBox(
                 height: 15,
               ),
-              Container(
-                height: 260,
-                decoration: BoxDecoration(
-                  color: background,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: ListView(
-                  physics: NeverScrollableScrollPhysics(),
-                  padding: EdgeInsets.only(right: 5, left: 5),
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      child: AspectRatio(
-                        aspectRatio: 1.4,
-                        child: Container(
-                          padding: EdgeInsets.all(50),
-                          margin: EdgeInsets.only(bottom: 80),
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 248, 55, 55),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              _circleProgress(),
-                              _macronutrients(),
-                            ],
-                          ),
+
+              InkWell(
+                onTap: () {},
+                child: AspectRatio(
+                  aspectRatio: 1.5,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 248, 55, 55),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(30),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _circleProgress(),
+                            _macronutrients(),
+                          ],
                         ),
                       ),
-                    )
-                  ],
+                    ),
+                  ),
                 ),
               ),
+              // ),
               SizedBox(
                 height: 10,
               ),
               AspectRatio(
                 aspectRatio: 2,
-                child: Container(
-                  margin: EdgeInsets.only(bottom: 70, right: 10, left: 10),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
