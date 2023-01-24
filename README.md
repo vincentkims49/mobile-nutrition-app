@@ -2,7 +2,7 @@
  
 ## <p>This application does the following:</p>
 <ls>
-<p><b>1.</b> Allows the user to create an accont and set their profile.
+<p><b>1.</b> Allows the user to create an account and set their profile.
 <p><b>2.</b> Allows the user to select their day meals(Breakfast, Lunch and Supper).
 <p><b>3.</b> Gives recipes for meals chosen by the user.
 <p><b>4.</b> Gives the types and amount of nutrients consumed by the user.
