@@ -4,6 +4,7 @@ import 'package:recipe/model/food-consumed.dart';
 import 'package:recipe/model/meal-consumed.dart';
 import 'package:recipe/screen/categorydata/mealconsumedtile.dart';
 import 'package:recipe/screen/consent/colors.dart';
+import 'package:intl/intl.dart';
 
 class Detailed_meal_consumed extends StatefulWidget {
   const Detailed_meal_consumed({super.key});
@@ -23,6 +24,9 @@ class _Detailed_meal_consumedState extends State<Detailed_meal_consumed> {
 
   @override
   Widget build(BuildContext context) {
+    var now = DateTime.now();
+    var formatter = new DateFormat('dd-MM-yyyy');
+    String formattedDate = formatter.format(now);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: maincolor,
@@ -51,7 +55,7 @@ class _Detailed_meal_consumedState extends State<Detailed_meal_consumed> {
             ),
             SizedBox(height: 7),
             Text(
-              'Wed, 18 Aug',
+              formattedDate,
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 22,

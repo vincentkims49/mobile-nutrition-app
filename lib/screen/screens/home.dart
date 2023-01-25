@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:recipe/screen/consent/colors.dart';
 import 'package:recipe/screen/fav/provider/favorite_provider.dart';
 import 'package:recipe/screen/home/appbanner.dart';
@@ -76,6 +77,36 @@ class _HomeState extends State<Home> {
         child: CustomScrollView(
           physics: BouncingScrollPhysics(),
           slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 360),
+                      child: Text(
+                        'Welcome,',
+                        style: GoogleFonts.bebasNeue(
+                          fontSize: 40,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 230),
+                      child: Text(
+                        'To Mobile Nutrition App',
+                        style: TextStyle(
+                          fontSize: 25,
+                          color: font,
+                          fontFamily: 'ro',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
               sliver: SliverToBoxAdapter(

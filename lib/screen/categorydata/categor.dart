@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:recipe/model/food-consumed.dart';
+import 'package:recipe/screen/categorydata/circle_progress.dart';
 import 'package:recipe/screen/categorydata/detailed_meal_consumed.dart';
 import 'package:recipe/screen/categorydata/mealconsumed.dart';
 import 'package:recipe/screen/categorydata/statistics.dart';
 import 'package:recipe/screen/consent/colors.dart';
 import 'package:recipe/screen/screens/sidebar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 class Category extends StatefulWidget {
   const Category({super.key});
@@ -15,7 +17,21 @@ class Category extends StatefulWidget {
   State<Category> createState() => _CategoryState();
 }
 
-class _CategoryState extends State<Category> {
+class _CategoryState extends State<Category>
+    with SingleTickerProviderStateMixin {
+  Animation<double>? _animation;
+  @override
+  void initState() {
+    super.initState();
+    AnimationController _animationController = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 3000));
+    _animationController.forward();
+    _animation = Tween<double>(begin: 0, end: 100).animate(_animationController)
+      ..addListener(() {
+        setState(() {});
+      });
+  }
+
   List<FoodConsumed> consumedFoods = [];
   @override
   void didChangeDependencies() {
@@ -25,6 +41,9 @@ class _CategoryState extends State<Category> {
 
   @override
   Widget build(BuildContext context) {
+    var now = DateTime.now();
+    var formatter = new DateFormat('dd-MM-yyyy');
+    String formattedDate = formatter.format(now);
     return Scaffold(
       backgroundColor: background,
       drawer: Navbar(),
@@ -56,7 +75,7 @@ class _CategoryState extends State<Category> {
               ),
               SizedBox(height: 7),
               Text(
-                'Wed, 18 Aug',
+                formattedDate,
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 22,
@@ -67,7 +86,10 @@ class _CategoryState extends State<Category> {
               ),
 
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: ((context) => Detailed_meal_consumed())));
+                },
                 child: AspectRatio(
                   aspectRatio: 1.5,
                   child: Padding(
@@ -83,7 +105,88 @@ class _CategoryState extends State<Category> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            _circleProgress(),
+                            SizedBox(
+                              height: 160,
+                              width: 160,
+                              child: Stack(children: [
+                                SizedBox(
+                                  height: 160,
+                                  width: 160,
+                                  child: CustomPaint(
+                                    foregroundPainter:
+                                        CircleProgress(_animation!.value),
+                                    child: Container(
+                                      width: 100,
+                                      height: 100,
+                                      child: GestureDetector(
+                                        onTap: () {},
+                                        child: Center(
+                                            child: Stack(
+                                          children: [
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Container(
+                                                width: double.infinity,
+                                                height: double.infinity,
+                                                margin: EdgeInsets.all(13),
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                      color: Colors.white
+                                                          .withOpacity(0.2),
+                                                      width: 8),
+                                                ),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Colors.white
+                                                        .withOpacity(0.1),
+                                                  ),
+                                                  child: Container(
+                                                    margin: EdgeInsets.all(22),
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          'Remaining',
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 12,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '1,112',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 22,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                        Text(
+                                                          'kcal',
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 12,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        )),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ]),
+                            ),
                             _macronutrients(),
                           ],
                         ),
@@ -171,74 +274,74 @@ class _CategoryState extends State<Category> {
     );
   }
 
-  Widget _circleProgress() {
-    return SizedBox(
-      width: 160,
-      height: 160,
-      child: Stack(
-        children: [
-          SizedBox(
-            width: 160,
-            height: 160,
-            child: CircularProgressIndicator(
-              strokeWidth: 8,
-              value: 0.7,
-              backgroundColor: Colors.white.withOpacity(0.2),
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            ),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: Container(
-              width: double.infinity,
-              height: double.infinity,
-              margin: EdgeInsets.all(13),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border:
-                    Border.all(color: Colors.white.withOpacity(0.2), width: 8),
-              ),
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white.withOpacity(0.1),
-                ),
-                child: Container(
-                  margin: EdgeInsets.all(22),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Remaining',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Text(
-                        '1,112',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        'kcal',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
+  // Widget _circleProgress() {
+  //   return SizedBox(
+  //     width: 160,
+  //     height: 160,
+  //     child: Stack(
+  //       children: [
+  //         SizedBox(
+  //           width: 160,
+  //           height: 160,
+  //           child: CircularProgressIndicator(
+  //             strokeWidth: 8,
+  //             value: 0.7,
+  //             backgroundColor: Colors.white.withOpacity(0.2),
+  //             valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+  //           ),
+  //         ),
+  //         Align(
+  //           alignment: Alignment.center,
+  //           child: Container(
+  //             width: double.infinity,
+  //             height: double.infinity,
+  //             margin: EdgeInsets.all(13),
+  //             decoration: BoxDecoration(
+  //               shape: BoxShape.circle,
+  //               border:
+  //                   Border.all(color: Colors.white.withOpacity(0.2), width: 8),
+  //             ),
+  //             child: Container(
+  //               decoration: BoxDecoration(
+  //                 shape: BoxShape.circle,
+  //                 color: Colors.white.withOpacity(0.1),
+  //               ),
+  //               child: Container(
+  //                 margin: EdgeInsets.all(22),
+  //                 child: Column(
+  //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                   children: [
+  //                     Text(
+  //                       'Remaining',
+  //                       style: TextStyle(
+  //                         color: Colors.white,
+  //                         fontSize: 12,
+  //                       ),
+  //                     ),
+  //                     Text(
+  //                       '1,112',
+  //                       style: TextStyle(
+  //                           color: Colors.white,
+  //                           fontSize: 22,
+  //                           fontWeight: FontWeight.bold),
+  //                     ),
+  //                     Text(
+  //                       'kcal',
+  //                       style: TextStyle(
+  //                         color: Colors.white,
+  //                         fontSize: 12,
+  //                       ),
+  //                     ),
+  //                   ],
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //         )
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _macronutrients() {
     return Column(

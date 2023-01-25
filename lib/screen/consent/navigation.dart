@@ -57,6 +57,7 @@ class _NavigationState extends State<Navigation> {
                 onTap: () {
                   setState(() {
                     index = 1;
+                    
                   });
                 },
                 child: Icon(
