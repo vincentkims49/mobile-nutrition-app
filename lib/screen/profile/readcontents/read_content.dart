@@ -251,7 +251,7 @@ class GetData extends StatelessWidget {
                       MaterialPageRoute(builder: ((context) => Navigation())));
                 },
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 150),
+                  padding: const EdgeInsets.symmetric(horizontal: 100),
                   child: Container(
                     alignment: Alignment.center,
                     height: 50,

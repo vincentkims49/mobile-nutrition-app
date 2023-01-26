@@ -78,54 +78,109 @@ class Getfood extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   ListView.builder(
-                    itemCount: 2,
+                    itemCount: 1,
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.zero,
                     itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        height: 70,
-                        margin: EdgeInsets.zero,
-                        child: IntrinsicHeight(
-                            child: Row(
+                      return Column(
+                        children: [
+                          Container(
+                            height: 70,
+                            margin: EdgeInsets.zero,
+                            child: IntrinsicHeight(
+                              child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                              VerticalDivider(
-                                color: Colors.blue,
-                                thickness: 2,
-                              ),
-                              SizedBox(width: 15),
-                              Container(
-                                height: 54,
-                                width: 54,
-                                decoration: BoxDecoration(
+                                  VerticalDivider(
                                     color: Colors.blue,
-                                    borderRadius: BorderRadius.circular(20)),
-                              ),
-                              SizedBox(width: 15),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    ' ${data['breakfast_1']}',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),
+                                    thickness: 2,
                                   ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    "21",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12,
-                                    ),
+                                  SizedBox(width: 15),
+                                  Container(
+                                    height: 54,
+                                    width: 54,
+                                    decoration: BoxDecoration(
+                                        color: Colors.blue,
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
                                   ),
+                                  SizedBox(width: 15),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        ' ${data['breakfast_1']}',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        "21 g",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                 ],
-                              )
-                            ])),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            height: 70,
+                            margin: EdgeInsets.zero,
+                            child: IntrinsicHeight(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  VerticalDivider(
+                                    color: Colors.blue,
+                                    thickness: 2,
+                                  ),
+                                  SizedBox(width: 15),
+                                  Container(
+                                    height: 54,
+                                    width: 54,
+                                    decoration: BoxDecoration(
+                                        color: Colors.blue,
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                  ),
+                                  SizedBox(width: 15),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        ' ${data['breakfast_2']}',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        "21 g",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       );
                     },
                   ),
@@ -183,54 +238,109 @@ class Getfood extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   ListView.builder(
-                    itemCount: 2,
+                    itemCount: 1,
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.zero,
                     itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        height: 70,
-                        margin: EdgeInsets.zero,
-                        child: IntrinsicHeight(
-                            child: Row(
+                      return Column(
+                        children: [
+                          Container(
+                            height: 70,
+                            margin: EdgeInsets.zero,
+                            child: IntrinsicHeight(
+                              child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                              VerticalDivider(
-                                color: Colors.blue,
-                                thickness: 2,
-                              ),
-                              SizedBox(width: 15),
-                              Container(
-                                height: 54,
-                                width: 54,
-                                decoration: BoxDecoration(
-                                    color: Colors.orange,
-                                    borderRadius: BorderRadius.circular(20)),
-                              ),
-                              SizedBox(width: 15),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    ' ${data['breakfast_1']}',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),
+                                  VerticalDivider(
+                                    color: Colors.blue,
+                                    thickness: 2,
                                   ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    "21",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12,
-                                    ),
+                                  SizedBox(width: 15),
+                                  Container(
+                                    height: 54,
+                                    width: 54,
+                                    decoration: BoxDecoration(
+                                        color: Colors.orange,
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
                                   ),
+                                  SizedBox(width: 15),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        ' ${data['lunch_1']}',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        "21 g",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                 ],
-                              )
-                            ])),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            height: 70,
+                            margin: EdgeInsets.zero,
+                            child: IntrinsicHeight(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  VerticalDivider(
+                                    color: Colors.blue,
+                                    thickness: 2,
+                                  ),
+                                  SizedBox(width: 15),
+                                  Container(
+                                    height: 54,
+                                    width: 54,
+                                    decoration: BoxDecoration(
+                                        color: Colors.orange,
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                  ),
+                                  SizedBox(width: 15),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        ' ${data['lunch_2']}',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        "21 g",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       );
                     },
                   ),
@@ -288,54 +398,109 @@ class Getfood extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   ListView.builder(
-                    itemCount: 2,
+                    itemCount: 1,
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.zero,
                     itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        height: 70,
-                        margin: EdgeInsets.zero,
-                        child: IntrinsicHeight(
-                            child: Row(
+                      return Column(
+                        children: [
+                          Container(
+                            height: 70,
+                            margin: EdgeInsets.zero,
+                            child: IntrinsicHeight(
+                              child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                              VerticalDivider(
-                                color: Colors.blue,
-                                thickness: 2,
-                              ),
-                              SizedBox(width: 15),
-                              Container(
-                                height: 54,
-                                width: 54,
-                                decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    borderRadius: BorderRadius.circular(20)),
-                              ),
-                              SizedBox(width: 15),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    ' ${data['breakfast_1']}',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),
+                                  VerticalDivider(
+                                    color: Colors.blue,
+                                    thickness: 2,
                                   ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    "21",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12,
-                                    ),
+                                  SizedBox(width: 15),
+                                  Container(
+                                    height: 54,
+                                    width: 54,
+                                    decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
                                   ),
+                                  SizedBox(width: 15),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        ' ${data['dinner_1']}',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        "21 g",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                 ],
-                              )
-                            ])),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            height: 70,
+                            margin: EdgeInsets.zero,
+                            child: IntrinsicHeight(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  VerticalDivider(
+                                    color: Colors.blue,
+                                    thickness: 2,
+                                  ),
+                                  SizedBox(width: 15),
+                                  Container(
+                                    height: 54,
+                                    width: 54,
+                                    decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                  ),
+                                  SizedBox(width: 15),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        ' ${data['dinner_2']}',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        "21 g",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       );
                     },
                   ),

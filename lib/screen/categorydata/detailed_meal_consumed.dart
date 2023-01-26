@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:recipe/screen/categorydata/edit_meals.dart';
 
 import 'package:recipe/screen/categorydata/foodsavailable.dart';
 import 'package:recipe/screen/consent/colors.dart';
@@ -189,7 +190,10 @@ class _Detailed_meal_consumedState extends State<Detailed_meal_consumed> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                         Navigator.of(context).push(MaterialPageRoute(
+                      builder: ((context) => EditMeals())));
+                      },
                       child: Container(
                           height: 60,
                           width: 60,

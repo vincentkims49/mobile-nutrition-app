@@ -62,7 +62,6 @@ class Contactus extends StatelessWidget {
                     hintStyle: TextStyle(fontFamily: 'ro'),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide.none,
                     ),
                   ),
                 ),
@@ -85,7 +84,6 @@ class Contactus extends StatelessWidget {
                     hintStyle: TextStyle(fontFamily: 'ro'),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide.none,
                     ),
                   ),
                 ),

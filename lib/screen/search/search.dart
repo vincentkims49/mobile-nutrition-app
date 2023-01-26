@@ -31,9 +31,6 @@ class _SearchState extends State<Search> {
       backgroundColor: background,
       body: Column(
         children: <Widget>[
-          SizedBox(
-            height: 15,
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Container(
@@ -75,17 +72,19 @@ class _SearchState extends State<Search> {
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: ListTile(
-                            title: Text(recipe.title),
-                            tileColor: Colors.red[100],
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      recipe.page,
-                                ),
-                              );
-                            },
+                          child: Container(
+                            child: ListTile(
+                              title: Text(recipe.title),
+                              tileColor: Colors.red[100],
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        recipe.page,
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         ),
                       );

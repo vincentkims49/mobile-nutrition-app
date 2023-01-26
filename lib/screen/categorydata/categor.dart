@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:recipe/model/food-consumed.dart';
 import 'package:recipe/screen/categorydata/circle_progress.dart';
 import 'package:recipe/screen/categorydata/detailed_meal_consumed.dart';
-import 'package:recipe/screen/categorydata/mealconsumed.dart';
+import 'package:recipe/screen/categorydata/foodsavailable.dart';
 import 'package:recipe/screen/categorydata/statistics.dart';
 import 'package:recipe/screen/consent/colors.dart';
 import 'package:recipe/screen/screens/sidebar.dart';
@@ -39,6 +41,22 @@ class _CategoryState extends State<Category>
   void didChangeDependencies() {
     provideConsumedFoods();
     super.didChangeDependencies();
+  }
+
+  List<String> docIDs = [];
+  Future getDocId() async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .where("email", isEqualTo: FirebaseAuth.instance.currentUser!.email)
+        .get()
+        .then(
+          (snapshot) => snapshot.docs.forEach(
+            (document) {
+              print(document.reference);
+              docIDs.add(document.reference.id);
+            },
+          ),
+        );
   }
 
   @override
@@ -238,9 +256,34 @@ class _CategoryState extends State<Category>
               SizedBox(
                 height: 10,
               ),
-              consumed_meal(consumedFoods: consumedFoods),
+              Padding(
+                padding: const EdgeInsets.only(right: 20, left: 5),
+                child: Container(
+                  height: 250,
+                  child: FutureBuilder(
+                    future: getDocId(),
+                    builder: (context, snapshot) {
+                      return ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: docIDs.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(15.5),
+                            child: ListTile(
+                              tileColor: background,
+                              title: Getfood(
+                                documentId: docIDs[index],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ),
               SizedBox(
-                height: 5,
+                height: 10,
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 10.0, left: 10),

@@ -69,9 +69,9 @@ class _pPersonaldataState extends State<pPersonaldata> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(30.0),
+              padding: const EdgeInsets.all(20.0),
               child: Container(
-                padding: EdgeInsets.only(left: 0),
+                padding: EdgeInsets.all(0),
                 decoration: BoxDecoration(
                   color: Color.fromARGB(255, 222, 240, 213),
                   borderRadius: BorderRadius.circular(15),
@@ -106,7 +106,7 @@ class _pPersonaldataState extends State<pPersonaldata> {
                     MaterialPageRoute(builder: ((context) => EditProfil())));
               },
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 180),
+                padding: const EdgeInsets.symmetric(horizontal: 150),
                 child: Container(
                   alignment: Alignment.center,
                   height: 50,

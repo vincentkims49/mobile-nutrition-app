@@ -98,7 +98,7 @@ class GetUserName extends StatelessWidget {
                       Text(
                         ' ${data['uid']}',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 15,
                         ),
                       ),
                     ],
