@@ -20,16 +20,18 @@ class Category extends StatefulWidget {
 class _CategoryState extends State<Category>
     with SingleTickerProviderStateMixin {
   Animation<double>? _animation;
+  double maxValue = 80.0;
   @override
   void initState() {
     super.initState();
     AnimationController _animationController = AnimationController(
         vsync: this, duration: Duration(milliseconds: 3000));
     _animationController.forward();
-    _animation = Tween<double>(begin: 0, end: 100).animate(_animationController)
-      ..addListener(() {
-        setState(() {});
-      });
+    _animation =
+        Tween<double>(begin: 100, end: maxValue).animate(_animationController)
+          ..addListener(() {
+            setState(() {});
+          });
   }
 
   List<FoodConsumed> consumedFoods = [];

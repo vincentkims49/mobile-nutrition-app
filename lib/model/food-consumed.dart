@@ -6,4 +6,5 @@ class FoodConsumed {
   final Widget ? image;
   final Color ? boxColor;
   FoodConsumed( {this.foodName, this.consumedAmount, this.icon, this.boxColor,this.image,});
+  
 }
