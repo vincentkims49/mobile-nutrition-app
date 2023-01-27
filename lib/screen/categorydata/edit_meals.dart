@@ -63,7 +63,7 @@ class _EditMealsState extends State<EditMeals> {
                   height: 10,
                 ),
                 Container(
-                  height: 740,
+                  height: 900,
                   child: FutureBuilder(
                     future: getDocId(),
                     builder: (context, snapshot) {

@@ -2,6 +2,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:recipe/screen/consent/colors.dart';
 import 'package:recipe/screen/consent/navigation.dart';
 
@@ -35,6 +36,9 @@ class _GetmealsState extends State<Getmeals> {
           ),
         );
   }
+
+  TextEditingController _dinnerController1 = TextEditingController();
+  TextEditingController _dinnerController2 = TextEditingController();
 
   String valueChooseLunch1 = 'Nothing to show';
   String valueChooseLunch2 = 'Nothing to show';
@@ -91,33 +95,73 @@ class _GetmealsState extends State<Getmeals> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      final docUser = FirebaseFirestore.instance
-                          .collection("users")
-                          .doc(widget.documentId);
-                      docUser.update({
-                        "lunch_1": valueChooseLunch1,
-                        "lunch_2": valueChooseLunch2,
-                        "breakfast_1": valueChooseBreakfast1,
-                        "breakfast_2": valueChooseBreakfast2,
-                        "dinner_1": valueChooseDinner1,
-                        "dinner_2": valueChooseDinner2,
-                      });
+                      final dinnerTotal = int.parse(_dinnerController1.text) +
+                          int.parse(_dinnerController1.text);
+                      dinnerTotal.toString();
+                      print(dinnerTotal);
 
-                      final snackBar = SnackBar(
-                        elevation: 0,
-                        behavior: SnackBarBehavior.floating,
-                        backgroundColor: Colors.transparent,
-                        content: AwesomeSnackbarContent(
-                          contentType: ContentType.success,
-                          message: 'Any data changes will be UPDATED!',
-                          title: 'Hello There!',
-                        ),
-                      );
-                      ScaffoldMessenger.of(context)
-                        ..hideCurrentSnackBar()
-                        ..showSnackBar(snackBar);
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: ((context) => Navigation())));
+                      if (_dinnerController1.text.isEmpty ||
+                          _dinnerController2.text.isEmpty) {
+                        final docUser = FirebaseFirestore.instance
+                            .collection("users")
+                            .doc(widget.documentId);
+                        docUser.update({
+                          "lunch_1": valueChooseLunch1,
+                          "lunch_2": valueChooseLunch2,
+                          "breakfast_1": valueChooseBreakfast1,
+                          "breakfast_2": valueChooseBreakfast2,
+                          "dinner_1": valueChooseDinner1,
+                          "dinner_2": valueChooseDinner2,
+                          "dinnerController1": "0",
+                        });
+
+                        final snackBar = SnackBar(
+                          elevation: 0,
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.transparent,
+                          content: AwesomeSnackbarContent(
+                            contentType: ContentType.success,
+                            message: 'Any data changes will be UPDATED!',
+                            title: 'Hello There!',
+                          ),
+                        );
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(snackBar);
+                        // Navigator.of(context).push(MaterialPageRoute(
+                        //     builder: ((context) => Navigation())));
+
+                      } else {
+                        final docUser = FirebaseFirestore.instance
+                            .collection("users")
+                            .doc(widget.documentId);
+                        docUser.update({
+                          "lunch_1": valueChooseLunch1,
+                          "lunch_2": valueChooseLunch2,
+                          "breakfast_1": valueChooseBreakfast1,
+                          "breakfast_2": valueChooseBreakfast2,
+                          "dinner_1": valueChooseDinner1,
+                          "dinner_2": valueChooseDinner2,
+                          "dinnerController1":
+                              _dinnerController1.text.trim().toString(),
+                        });
+
+                        final snackBar = SnackBar(
+                          elevation: 0,
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.transparent,
+                          content: AwesomeSnackbarContent(
+                            contentType: ContentType.success,
+                            message: 'Any data changes will be UPDATED!',
+                            title: 'Hello There!',
+                          ),
+                        );
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(snackBar);
+                        // Navigator.of(context).push(MaterialPageRoute(
+                        //     builder: ((context) => Navigation())));
+                      }
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -243,15 +287,7 @@ class _GetmealsState extends State<Getmeals> {
         Row(
           children: [
             Text(
-              'Lunch: ',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.red,
-              ),
-            ),
-            Text(
-              'Second ',
+              'Alternative ',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -336,15 +372,7 @@ class _GetmealsState extends State<Getmeals> {
         Row(
           children: [
             Text(
-              'Breakfast: ',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.red,
-              ),
-            ),
-            Text(
-              'Second ',
+              'Alternative ',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -388,11 +416,15 @@ class _GetmealsState extends State<Getmeals> {
             Text(
               'Dinner: ',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 25,
                 fontWeight: FontWeight.bold,
                 color: Colors.red,
               ),
             ),
+          ],
+        ),
+        Row(
+          children: [
             Text(
               'First ',
               style: TextStyle(
@@ -407,20 +439,38 @@ class _GetmealsState extends State<Getmeals> {
           height: 20,
         ),
         Center(
-          child: DropdownButton(
-            hint: Text("Select a meal"),
-            items: DinnerItems.map((valueItem) {
-              return DropdownMenuItem(
-                child: Text(valueItem),
-                value: valueItem,
-              );
-            }).toList(),
-            onChanged: ((newValue) {
-              setState(() {
-                valueChooseDinner1 = newValue.toString();
-              });
-            }),
-            value: valueChooseDinner1,
+          child: Row(
+            children: [
+              DropdownButton(
+                hint: Text("Select a meal"),
+                items: DinnerItems.map((valueItem) {
+                  return DropdownMenuItem(
+                    child: Text(valueItem),
+                    value: valueItem,
+                  );
+                }).toList(),
+                onChanged: ((newValue) {
+                  setState(() {
+                    valueChooseDinner1 = newValue.toString();
+                  });
+                }),
+                value: valueChooseDinner1,
+              ),
+            ],
+          ),
+        ),
+        TextField(
+          controller: _dinnerController1,
+          keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+            FilteringTextInputFormatter.digitsOnly,
+          ],
+          maxLength: 300,
+          decoration: InputDecoration(
+            icon: Icon(Icons.food_bank_outlined),
+            hintText: 'Amount to be taken in grams',
+            hintStyle: TextStyle(fontFamily: 'ro'),
           ),
         ),
         SizedBox(
@@ -429,15 +479,7 @@ class _GetmealsState extends State<Getmeals> {
         Row(
           children: [
             Text(
-              'Dinner: ',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.red,
-              ),
-            ),
-            Text(
-              'Second ',
+              'Alternative ',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -450,25 +492,43 @@ class _GetmealsState extends State<Getmeals> {
           height: 20,
         ),
         Center(
-          child: DropdownButton(
-            hint: Text("Select a meal"),
-            items: DinnerItems.map((valueItem) {
-              return DropdownMenuItem(
-                child: Text(valueItem),
-                value: valueItem,
-              );
-            }).toList(),
-            onChanged: ((newValue) {
-              setState(() {
-                valueChooseDinner2 = newValue.toString();
-              });
-            }),
-            value: valueChooseDinner2,
+          child: Row(
+            children: [
+              DropdownButton(
+                hint: Text("Select a meal"),
+                items: DinnerItems.map((valueItem) {
+                  return DropdownMenuItem(
+                    child: Text(valueItem),
+                    value: valueItem,
+                  );
+                }).toList(),
+                onChanged: ((newValue) {
+                  setState(() {
+                    valueChooseDinner2 = newValue.toString();
+                  });
+                }),
+                value: valueChooseDinner2,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ],
           ),
         ),
-        SizedBox(
-          height: 20,
-        ),
+        TextField(
+          controller: _dinnerController2,
+          keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+            FilteringTextInputFormatter.digitsOnly,
+          ],
+          maxLength: 300,
+          decoration: InputDecoration(
+            icon: Icon(Icons.food_bank_outlined),
+            hintText: 'Amount to be taken in grams',
+            hintStyle: TextStyle(fontFamily: 'ro'),
+          ),
+        )
       ],
     );
   }
