@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:recipe/screen/categorydata/edit_meals.dart';
+
 
 import 'package:recipe/screen/categorydata/foodsavailable.dart';
 import 'package:recipe/screen/consent/colors.dart';
@@ -102,9 +101,9 @@ class _Detailed_meal_consumedState extends State<Detailed_meal_consumed> {
             //   ),
             // ),
             Padding(
-              padding: const EdgeInsets.only(right: 20, left: 5),
+              padding: EdgeInsets.only(right: 0, left: 0),
               child: Container(
-                height: 720,
+                height: 760,
                 child: FutureBuilder(
                   future: getDocId(),
                   builder: (context, snapshot) {
@@ -113,7 +112,7 @@ class _Detailed_meal_consumedState extends State<Detailed_meal_consumed> {
                       itemCount: docIDs.length,
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding: const EdgeInsets.all(15.5),
+                          padding: EdgeInsets.all(5),
                           child: ListTile(
                             tileColor: background,
                             title: Getfood(
@@ -124,89 +123,6 @@ class _Detailed_meal_consumedState extends State<Detailed_meal_consumed> {
                       },
                     );
                   },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Container(
-                height: 60,
-                margin: EdgeInsets.only(bottom: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 250,
-                      height: 40,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Remaining',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    '1,112',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    'kcal',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          LinearPercentIndicator(
-                            width: 250,
-                            animation: true,
-                            lineHeight: 6,
-                            animationDuration: 2500,
-                            percent: 0.8,
-                            barRadius: Radius.circular(3),
-                            progressColor: Colors.blue,
-                            padding: EdgeInsets.zero,
-                            backgroundColor: Colors.blue.withOpacity(0.2),
-                          ),
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                         Navigator.of(context).push(MaterialPageRoute(
-                      builder: ((context) => EditMeals())));
-                      },
-                      child: Container(
-                          height: 60,
-                          width: 60,
-                          decoration: BoxDecoration(
-                              color: maincolor,
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Icon(
-                            Icons.edit,
-                            color: Colors.white,
-                            size: 27,
-                          )),
-                    )
-                  ],
                 ),
               ),
             ),

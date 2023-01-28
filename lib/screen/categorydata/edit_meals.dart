@@ -45,25 +45,24 @@ class _EditMealsState extends State<EditMeals> {
         physics: BouncingScrollPhysics(),
         child: Container(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Text(
-                    'Edit your Meals Below',
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'Edit your Meals Below \nChoose a meal you like to eat today',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
                 Container(
-                  height: 900,
+                  height: 1950,
                   child: FutureBuilder(
                     future: getDocId(),
                     builder: (context, snapshot) {
@@ -72,7 +71,7 @@ class _EditMealsState extends State<EditMeals> {
                         itemCount: docIDs.length,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: const EdgeInsets.all(15.5),
+                            padding: const EdgeInsets.all(5),
                             child: ListTile(
                               tileColor: background,
                               title: Getmeals(

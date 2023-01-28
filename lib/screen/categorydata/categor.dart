@@ -259,7 +259,7 @@ class _CategoryState extends State<Category>
               Padding(
                 padding: const EdgeInsets.only(right: 20, left: 5),
                 child: Container(
-                  height: 250,
+                  height: 230,
                   child: FutureBuilder(
                     future: getDocId(),
                     builder: (context, snapshot) {

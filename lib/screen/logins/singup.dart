@@ -70,6 +70,7 @@ class _SignUpState extends State<SignUp> {
     String email,
     String url,
     String uid,
+    
   ) async {
     await FirebaseFirestore.instance
         .collection('users')

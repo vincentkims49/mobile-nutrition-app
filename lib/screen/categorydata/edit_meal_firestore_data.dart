@@ -39,6 +39,10 @@ class _GetmealsState extends State<Getmeals> {
 
   TextEditingController _dinnerController1 = TextEditingController();
   TextEditingController _dinnerController2 = TextEditingController();
+  TextEditingController _lunchController1 = TextEditingController();
+  TextEditingController _lunchController2 = TextEditingController();
+  TextEditingController _breakfastController1 = TextEditingController();
+  TextEditingController _breakfastController2 = TextEditingController();
 
   String valueChooseLunch1 = 'Nothing to show';
   String valueChooseLunch2 = 'Nothing to show';
@@ -68,6 +72,17 @@ class _GetmealsState extends State<Getmeals> {
     'Rice Eggs',
     'Nothing to show',
   ];
+  @override
+  void dispose() {
+    _dinnerController1.dispose();
+    _dinnerController2.dispose();
+    _lunchController1.dispose();
+    _lunchController2.dispose();
+    _breakfastController1.dispose();
+    _breakfastController2.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,73 +110,36 @@ class _GetmealsState extends State<Getmeals> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      final dinnerTotal = int.parse(_dinnerController1.text) +
-                          int.parse(_dinnerController1.text);
-                      dinnerTotal.toString();
-                      print(dinnerTotal);
+                      dinnerfunction();
+                      breakfastfunction();
+                      lunchfunction();
+                      final docUser = FirebaseFirestore.instance
+                          .collection("users")
+                          .doc(widget.documentId);
+                      docUser.update({
+                        "lunch_1": valueChooseLunch1,
+                        "lunch_2": valueChooseLunch2,
+                        "breakfast_1": valueChooseBreakfast1,
+                        "breakfast_2": valueChooseBreakfast2,
+                        "dinner_1": valueChooseDinner1,
+                        "dinner_2": valueChooseDinner2,
+                      });
 
-                      if (_dinnerController1.text.isEmpty ||
-                          _dinnerController2.text.isEmpty) {
-                        final docUser = FirebaseFirestore.instance
-                            .collection("users")
-                            .doc(widget.documentId);
-                        docUser.update({
-                          "lunch_1": valueChooseLunch1,
-                          "lunch_2": valueChooseLunch2,
-                          "breakfast_1": valueChooseBreakfast1,
-                          "breakfast_2": valueChooseBreakfast2,
-                          "dinner_1": valueChooseDinner1,
-                          "dinner_2": valueChooseDinner2,
-                          "dinnerController1": "0",
-                        });
-
-                        final snackBar = SnackBar(
-                          elevation: 0,
-                          behavior: SnackBarBehavior.floating,
-                          backgroundColor: Colors.transparent,
-                          content: AwesomeSnackbarContent(
-                            contentType: ContentType.success,
-                            message: 'Any data changes will be UPDATED!',
-                            title: 'Hello There!',
-                          ),
-                        );
-                        ScaffoldMessenger.of(context)
-                          ..hideCurrentSnackBar()
-                          ..showSnackBar(snackBar);
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //     builder: ((context) => Navigation())));
-
-                      } else {
-                        final docUser = FirebaseFirestore.instance
-                            .collection("users")
-                            .doc(widget.documentId);
-                        docUser.update({
-                          "lunch_1": valueChooseLunch1,
-                          "lunch_2": valueChooseLunch2,
-                          "breakfast_1": valueChooseBreakfast1,
-                          "breakfast_2": valueChooseBreakfast2,
-                          "dinner_1": valueChooseDinner1,
-                          "dinner_2": valueChooseDinner2,
-                          "dinnerController1":
-                              _dinnerController1.text.trim().toString(),
-                        });
-
-                        final snackBar = SnackBar(
-                          elevation: 0,
-                          behavior: SnackBarBehavior.floating,
-                          backgroundColor: Colors.transparent,
-                          content: AwesomeSnackbarContent(
-                            contentType: ContentType.success,
-                            message: 'Any data changes will be UPDATED!',
-                            title: 'Hello There!',
-                          ),
-                        );
-                        ScaffoldMessenger.of(context)
-                          ..hideCurrentSnackBar()
-                          ..showSnackBar(snackBar);
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //     builder: ((context) => Navigation())));
-                      }
+                      final snackBar = SnackBar(
+                        elevation: 0,
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                        content: AwesomeSnackbarContent(
+                          contentType: ContentType.success,
+                          message: 'Any data changes will be UPDATED!',
+                          title: 'Hello There!',
+                        ),
+                      );
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentSnackBar()
+                        ..showSnackBar(snackBar);
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: ((context) => Navigation())));
                     },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -236,8 +214,6 @@ class _GetmealsState extends State<Getmeals> {
     );
   }
 
-  Future picker() async {}
-
   lunch() {
     return Column(
       children: [
@@ -246,11 +222,15 @@ class _GetmealsState extends State<Getmeals> {
             Text(
               'Lunch: ',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
                 color: Colors.red,
               ),
             ),
+          ],
+        ),
+        Row(
+          children: [
             Text(
               'First ',
               style: TextStyle(
@@ -265,20 +245,38 @@ class _GetmealsState extends State<Getmeals> {
           height: 20,
         ),
         Center(
-          child: DropdownButton(
-            hint: Text("Select a meal"),
-            items: lunchItems.map((valueItem) {
-              return DropdownMenuItem(
-                child: Text(valueItem),
-                value: valueItem,
-              );
-            }).toList(),
-            onChanged: ((newValue) {
-              setState(() {
-                valueChooseLunch1 = newValue.toString();
-              });
-            }),
-            value: valueChooseLunch1,
+          child: Row(
+            children: [
+              DropdownButton(
+                hint: Text("Select a meal"),
+                items: lunchItems.map((valueItem) {
+                  return DropdownMenuItem(
+                    child: Text(valueItem),
+                    value: valueItem,
+                  );
+                }).toList(),
+                onChanged: ((newValue) {
+                  setState(() {
+                    valueChooseLunch1 = newValue.toString();
+                  });
+                }),
+                value: valueChooseLunch1,
+              ),
+            ],
+          ),
+        ),
+        TextField(
+          controller: _lunchController1,
+          keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+            FilteringTextInputFormatter.digitsOnly,
+          ],
+          maxLength: 3,
+          decoration: InputDecoration(
+            icon: Icon(Icons.food_bank_outlined),
+            hintText: 'Amount to be taken in grams',
+            hintStyle: TextStyle(fontFamily: 'ro'),
           ),
         ),
         SizedBox(
@@ -300,25 +298,43 @@ class _GetmealsState extends State<Getmeals> {
           height: 20,
         ),
         Center(
-          child: DropdownButton(
-            hint: Text("Select a meal"),
-            items: lunchItems.map((valueItem) {
-              return DropdownMenuItem(
-                child: Text(valueItem),
-                value: valueItem,
-              );
-            }).toList(),
-            onChanged: ((newValue) {
-              setState(() {
-                valueChooseLunch2 = newValue.toString();
-              });
-            }),
-            value: valueChooseLunch2,
+          child: Row(
+            children: [
+              DropdownButton(
+                hint: Text("Select a meal"),
+                items: lunchItems.map((valueItem) {
+                  return DropdownMenuItem(
+                    child: Text(valueItem),
+                    value: valueItem,
+                  );
+                }).toList(),
+                onChanged: ((newValue) {
+                  setState(() {
+                    valueChooseLunch2 = newValue.toString();
+                  });
+                }),
+                value: valueChooseLunch2,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ],
           ),
         ),
-        SizedBox(
-          height: 20,
-        ),
+        TextField(
+          controller: _lunchController2,
+          keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+            FilteringTextInputFormatter.digitsOnly,
+          ],
+          maxLength: 3,
+          decoration: InputDecoration(
+            icon: Icon(Icons.food_bank_outlined),
+            hintText: 'Amount to be taken in grams',
+            hintStyle: TextStyle(fontFamily: 'ro'),
+          ),
+        )
       ],
     );
   }
@@ -331,11 +347,15 @@ class _GetmealsState extends State<Getmeals> {
             Text(
               'Breakfast: ',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
                 color: Colors.red,
               ),
             ),
+          ],
+        ),
+        Row(
+          children: [
             Text(
               'First ',
               style: TextStyle(
@@ -350,20 +370,38 @@ class _GetmealsState extends State<Getmeals> {
           height: 20,
         ),
         Center(
-          child: DropdownButton(
-            hint: Text("Select a meal"),
-            items: breakfastItems.map((valueItem) {
-              return DropdownMenuItem(
-                child: Text(valueItem),
-                value: valueItem,
-              );
-            }).toList(),
-            onChanged: ((newValue) {
-              setState(() {
-                valueChooseBreakfast1 = newValue.toString();
-              });
-            }),
-            value: valueChooseBreakfast1,
+          child: Row(
+            children: [
+              DropdownButton(
+                hint: Text("Select a meal"),
+                items: breakfastItems.map((valueItem) {
+                  return DropdownMenuItem(
+                    child: Text(valueItem),
+                    value: valueItem,
+                  );
+                }).toList(),
+                onChanged: ((newValue) {
+                  setState(() {
+                    valueChooseBreakfast1 = newValue.toString();
+                  });
+                }),
+                value: valueChooseBreakfast1,
+              ),
+            ],
+          ),
+        ),
+        TextField(
+          controller: _breakfastController1,
+          keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+            FilteringTextInputFormatter.digitsOnly,
+          ],
+          maxLength: 3,
+          decoration: InputDecoration(
+            icon: Icon(Icons.food_bank_outlined),
+            hintText: 'Amount to be taken in grams',
+            hintStyle: TextStyle(fontFamily: 'ro'),
           ),
         ),
         SizedBox(
@@ -385,25 +423,43 @@ class _GetmealsState extends State<Getmeals> {
           height: 20,
         ),
         Center(
-          child: DropdownButton(
-            hint: Text("Select a meal"),
-            items: breakfastItems.map((valueItem) {
-              return DropdownMenuItem(
-                child: Text(valueItem),
-                value: valueItem,
-              );
-            }).toList(),
-            onChanged: ((newValue) {
-              setState(() {
-                valueChooseBreakfast2 = newValue.toString();
-              });
-            }),
-            value: valueChooseBreakfast2,
+          child: Row(
+            children: [
+              DropdownButton(
+                hint: Text("Select a meal"),
+                items: breakfastItems.map((valueItem) {
+                  return DropdownMenuItem(
+                    child: Text(valueItem),
+                    value: valueItem,
+                  );
+                }).toList(),
+                onChanged: ((newValue) {
+                  setState(() {
+                    valueChooseBreakfast2 = newValue.toString();
+                  });
+                }),
+                value: valueChooseBreakfast2,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ],
           ),
         ),
-        SizedBox(
-          height: 20,
-        ),
+        TextField(
+          controller: _breakfastController2,
+          keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+            FilteringTextInputFormatter.digitsOnly,
+          ],
+          maxLength: 3,
+          decoration: InputDecoration(
+            icon: Icon(Icons.food_bank_outlined),
+            hintText: 'Amount to be taken in grams',
+            hintStyle: TextStyle(fontFamily: 'ro'),
+          ),
+        )
       ],
     );
   }
@@ -416,7 +472,7 @@ class _GetmealsState extends State<Getmeals> {
             Text(
               'Dinner: ',
               style: TextStyle(
-                fontSize: 25,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
                 color: Colors.red,
               ),
@@ -463,10 +519,10 @@ class _GetmealsState extends State<Getmeals> {
           controller: _dinnerController1,
           keyboardType: TextInputType.number,
           inputFormatters: <TextInputFormatter>[
-            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+            FilteringTextInputFormatter.allow(RegExp('[0-9]')),
             FilteringTextInputFormatter.digitsOnly,
           ],
-          maxLength: 300,
+          maxLength: 3,
           decoration: InputDecoration(
             icon: Icon(Icons.food_bank_outlined),
             hintText: 'Amount to be taken in grams',
@@ -519,10 +575,10 @@ class _GetmealsState extends State<Getmeals> {
           controller: _dinnerController2,
           keyboardType: TextInputType.number,
           inputFormatters: <TextInputFormatter>[
-            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+            FilteringTextInputFormatter.allow(RegExp('[0-9]')),
             FilteringTextInputFormatter.digitsOnly,
           ],
-          maxLength: 300,
+          maxLength: 3,
           decoration: InputDecoration(
             icon: Icon(Icons.food_bank_outlined),
             hintText: 'Amount to be taken in grams',
@@ -531,5 +587,167 @@ class _GetmealsState extends State<Getmeals> {
         )
       ],
     );
+  }
+
+  dinnerfunction() {
+    if (_dinnerController1.text.trim().isEmpty &&
+        _dinnerController2.text.trim().isNotEmpty) {
+      int dinnervalue1 = 0;
+      final dinnerTotal = dinnervalue1 + int.parse(_dinnerController2.text);
+      dinnerTotal.toString();
+      print(dinnerTotal);
+
+      final docUser =
+          FirebaseFirestore.instance.collection("users").doc(widget.documentId);
+      docUser.update({
+        "dinnertotal": dinnerTotal,
+        "dinnerController1": dinnervalue1,
+        "dinnerController2": _dinnerController2.text.trim().toString(),
+      });
+    } else if (_dinnerController2.text.trim().isEmpty &&
+        _dinnerController1.text.trim().isNotEmpty) {
+      int dinnervalue2 = 0;
+      final dinnerTotal = int.parse(_dinnerController1.text) + dinnervalue2;
+      dinnerTotal.toString();
+      print(dinnerTotal);
+      final docUser =
+          FirebaseFirestore.instance.collection("users").doc(widget.documentId);
+      docUser.update({
+        "dinnertotal": dinnerTotal,
+        "dinnerController2": dinnervalue2,
+        "dinnerController1": _dinnerController1.text.trim().toString(),
+      });
+    } else if (_dinnerController2.text.trim().isEmpty &&
+        _dinnerController1.text.trim().isEmpty) {
+      int dinnervalue1 = 0;
+      int dinnervalue2 = 0;
+      final dinnerTotal = dinnervalue1 + dinnervalue2;
+      dinnerTotal.toString();
+      print(dinnerTotal);
+      final docUser =
+          FirebaseFirestore.instance.collection("users").doc(widget.documentId);
+      docUser.update({
+        "dinnertotal": dinnerTotal,
+        "dinnerController2": dinnervalue2,
+        "dinnerController1": dinnervalue1,
+      });
+    } else {
+      int dinnerTotal = int.parse(_dinnerController1.text) +
+          int.parse(_dinnerController2.text);
+
+      final docUser =
+          FirebaseFirestore.instance.collection("users").doc(widget.documentId);
+      docUser.update({
+        "dinnertotal": dinnerTotal,
+        "dinnerController1": _dinnerController1.text.trim().toString(),
+        "dinnerController2": _dinnerController2.text.trim().toString(),
+      });
+    }
+  }
+
+  breakfastfunction() {
+    if (_breakfastController1.text.trim().isEmpty &&
+        _breakfastController2.text.trim().isNotEmpty) {
+      int breakfastalue1 = 0;
+      final breakfastTotal =
+          breakfastalue1 + int.parse(_breakfastController2.text);
+
+      final docUser =
+          FirebaseFirestore.instance.collection("users").doc(widget.documentId);
+      docUser.update({
+        "breakfasttotal": breakfastTotal,
+        "breakfastcontroller1": breakfastalue1,
+        "breakfastcontroller2": _breakfastController2.text.trim().toString(),
+      });
+    } else if (_breakfastController2.text.trim().isEmpty &&
+        _breakfastController1.text.trim().isNotEmpty) {
+      int breakfastalue2 = 0;
+      final breakfastTotal =
+          int.parse(_breakfastController1.text) + breakfastalue2;
+
+      final docUser =
+          FirebaseFirestore.instance.collection("users").doc(widget.documentId);
+      docUser.update({
+        "breakfasttotal": breakfastTotal,
+        "breakfastcontroller2": breakfastalue2,
+        "breakfastcontroller1": _breakfastController1.text.trim().toString(),
+      });
+    } else if (_breakfastController1.text.trim().isEmpty &&
+        _breakfastController2.text.trim().isEmpty) {
+      int breakfastalue1 = 0;
+      int breakfastalue2 = 0;
+      final breakfastTotal = breakfastalue1 + breakfastalue2;
+
+      final docUser =
+          FirebaseFirestore.instance.collection("users").doc(widget.documentId);
+      docUser.update({
+        "breakfasttotal": breakfastTotal,
+        "breakfastcontroller2": breakfastalue2,
+        "breakfastcontroller1": breakfastalue1,
+      });
+    } else {
+      int breakfastTotal = int.parse(_breakfastController1.text) +
+          int.parse(_breakfastController2.text);
+
+      final docUser =
+          FirebaseFirestore.instance.collection("users").doc(widget.documentId);
+      docUser.update({
+        "breakfasttotal": breakfastTotal,
+        "breakfastcontroller1": _breakfastController1.text.trim().toString(),
+        "breakfastcontroller2": _breakfastController2.text.trim().toString(),
+      });
+    }
+  }
+
+  lunchfunction() {
+    if (_lunchController1.text.trim().isEmpty &&
+        _lunchController2.text.trim().isNotEmpty) {
+      int lunchvalue1 = 0;
+      final lunchtotal = lunchvalue1 + int.parse(_breakfastController2.text);
+
+      final docUser =
+          FirebaseFirestore.instance.collection("users").doc(widget.documentId);
+      docUser.update({
+        "breakfasttotal": lunchtotal,
+        "lunchcontroller1": lunchvalue1,
+        "lunchcontroller2": _lunchController2.text.trim().toString(),
+      });
+    } else if (_lunchController2.text.trim().isEmpty &&
+        _lunchController1.text.trim().isNotEmpty) {
+      int lunchvalue2 = 0;
+      final lunchTotal = int.parse(_lunchController1.text) + lunchvalue2;
+
+      final docUser =
+          FirebaseFirestore.instance.collection("users").doc(widget.documentId);
+      docUser.update({
+        "lunchtotal": lunchTotal,
+        "lunchcontroller2": lunchvalue2,
+        "lunchcontroller1": _lunchController1.text.trim().toString(),
+      });
+    } else if (_lunchController1.text.trim().isEmpty &&
+        _lunchController2.text.trim().isEmpty) {
+      int lunchvalue1 = 0;
+      int lunchvalue2 = 0;
+      final lunchTotal = lunchvalue1 + lunchvalue2;
+
+      final docUser =
+          FirebaseFirestore.instance.collection("users").doc(widget.documentId);
+      docUser.update({
+        "lunchtotal": lunchTotal,
+        "lunchcontroller2": lunchvalue2,
+        "lunchcontroller1": lunchvalue1,
+      });
+    } else {
+      int lunchTotal =
+          int.parse(_lunchController1.text) + int.parse(_lunchController2.text);
+
+      final docUser =
+          FirebaseFirestore.instance.collection("users").doc(widget.documentId);
+      docUser.update({
+        "lunchtotal": lunchTotal,
+        "lunchcontroller1": _lunchController1.text.trim().toString(),
+        "lunchcontroller2": _lunchController2.text.trim().toString(),
+      });
+    }
   }
 }
