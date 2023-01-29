@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:recipe/model/food-consumed.dart';
+import 'package:recipe/screen/categorydata/aspectwidgets.dart';
 import 'package:recipe/screen/categorydata/circle_progress.dart';
 import 'package:recipe/screen/categorydata/detailed_meal_consumed.dart';
 import 'package:recipe/screen/categorydata/foodsavailable.dart';
@@ -253,9 +254,41 @@ class _CategoryState extends State<Category>
                   ),
                 ),
               ),
+              
               SizedBox(
                 height: 10,
               ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0, left: 10),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: ((context) => Detailed_meal_consumed())));
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        'View',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        ' All',
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+
               Padding(
                 padding: const EdgeInsets.only(right: 20, left: 5),
                 child: Container(
@@ -279,36 +312,6 @@ class _CategoryState extends State<Category>
                         },
                       );
                     },
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10.0, left: 10),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: ((context) => Detailed_meal_consumed())));
-                  },
-                  child: Row(
-                    children: [
-                      Text(
-                        'View',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        ' Detailed',
-                        style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
                   ),
                 ),
               ),

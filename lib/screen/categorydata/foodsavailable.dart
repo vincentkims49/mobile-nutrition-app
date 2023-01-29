@@ -618,7 +618,7 @@ class Getfood extends StatelessWidget {
                                             animation: true,
                                             lineHeight: 6,
                                             animationDuration: 2500,
-                                            percent: 0.8,
+                                            percent: totakcal.toDouble() / 5994,
                                             barRadius: Radius.circular(3),
                                             progressColor: Colors.blue,
                                             padding: EdgeInsets.zero,
