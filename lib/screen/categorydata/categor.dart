@@ -2,9 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:recipe/model/food-consumed.dart';
-import 'package:recipe/screen/categorydata/aspectwidgets.dart';
-import 'package:recipe/screen/categorydata/circle_progress.dart';
+
 import 'package:recipe/screen/categorydata/detailed_meal_consumed.dart';
 import 'package:recipe/screen/categorydata/foodsavailable.dart';
 import 'package:recipe/screen/categorydata/statistics.dart';
@@ -22,28 +20,6 @@ class Category extends StatefulWidget {
 
 class _CategoryState extends State<Category>
     with SingleTickerProviderStateMixin {
-  Animation<double>? _animation;
-  double maxValue = 80.0;
-  @override
-  void initState() {
-    super.initState();
-    AnimationController _animationController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 3000));
-    _animationController.forward();
-    _animation =
-        Tween<double>(begin: 100, end: maxValue).animate(_animationController)
-          ..addListener(() {
-            setState(() {});
-          });
-  }
-
-  List<FoodConsumed> consumedFoods = [];
-  @override
-  void didChangeDependencies() {
-    provideConsumedFoods();
-    super.didChangeDependencies();
-  }
-
   List<String> docIDs = [];
   Future getDocId() async {
     await FirebaseFirestore.instance
@@ -105,156 +81,10 @@ class _CategoryState extends State<Category>
               SizedBox(
                 height: 15,
               ),
-
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: ((context) => Detailed_meal_consumed())));
-                },
-                child: AspectRatio(
-                  aspectRatio: 1.5,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 248, 55, 55),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(30),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              height: 160,
-                              width: 160,
-                              child: Stack(children: [
-                                SizedBox(
-                                  height: 160,
-                                  width: 160,
-                                  child: CustomPaint(
-                                    foregroundPainter:
-                                        CircleProgress(_animation!.value),
-                                    child: Container(
-                                      width: 100,
-                                      height: 100,
-                                      child: GestureDetector(
-                                        onTap: () {},
-                                        child: Center(
-                                            child: Stack(
-                                          children: [
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: Container(
-                                                width: double.infinity,
-                                                height: double.infinity,
-                                                margin: EdgeInsets.all(13),
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  border: Border.all(
-                                                      color: Colors.white
-                                                          .withOpacity(0.2),
-                                                      width: 8),
-                                                ),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: Colors.white
-                                                        .withOpacity(0.1),
-                                                  ),
-                                                  child: Container(
-                                                    margin: EdgeInsets.all(22),
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Text(
-                                                          'Remaining',
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 12,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          '1,112',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 22,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                        Text(
-                                                          'kcal',
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 12,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        )),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                            ),
-                            _macronutrients(),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              // ),
               SizedBox(
                 height: 10,
               ),
-              AspectRatio(
-                aspectRatio: 2,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      statisticsTile(
-                        title: 'Intaked',
-                        icon: FaIcon(
-                          FontAwesomeIcons.pizzaSlice,
-                          color: Colors.orange,
-                        ),
-                        progressColor: Colors.blue,
-                        value: 589,
-                        progressPercent: 0.4,
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      statisticsTile(
-                        title: 'Burned',
-                        icon: FaIcon(
-                          FontAwesomeIcons.fire,
-                          color: Colors.red,
-                        ),
-                        progressColor: Colors.redAccent,
-                        value: 738,
-                        progressPercent: 0.7,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              
+              statsdata(),
               SizedBox(
                 height: 10,
               ),
@@ -288,7 +118,6 @@ class _CategoryState extends State<Category>
               SizedBox(
                 height: 10,
               ),
-
               Padding(
                 padding: const EdgeInsets.only(right: 20, left: 5),
                 child: Container(
@@ -321,144 +150,65 @@ class _CategoryState extends State<Category>
       ),
     );
   }
+}
 
-  // Widget _circleProgress() {
-  //   return SizedBox(
-  //     width: 160,
-  //     height: 160,
-  //     child: Stack(
-  //       children: [
-  //         SizedBox(
-  //           width: 160,
-  //           height: 160,
-  //           child: CircularProgressIndicator(
-  //             strokeWidth: 8,
-  //             value: 0.7,
-  //             backgroundColor: Colors.white.withOpacity(0.2),
-  //             valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-  //           ),
-  //         ),
-  //         Align(
-  //           alignment: Alignment.center,
-  //           child: Container(
-  //             width: double.infinity,
-  //             height: double.infinity,
-  //             margin: EdgeInsets.all(13),
-  //             decoration: BoxDecoration(
-  //               shape: BoxShape.circle,
-  //               border:
-  //                   Border.all(color: Colors.white.withOpacity(0.2), width: 8),
-  //             ),
-  //             child: Container(
-  //               decoration: BoxDecoration(
-  //                 shape: BoxShape.circle,
-  //                 color: Colors.white.withOpacity(0.1),
-  //               ),
-  //               child: Container(
-  //                 margin: EdgeInsets.all(22),
-  //                 child: Column(
-  //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                   children: [
-  //                     Text(
-  //                       'Remaining',
-  //                       style: TextStyle(
-  //                         color: Colors.white,
-  //                         fontSize: 12,
-  //                       ),
-  //                     ),
-  //                     Text(
-  //                       '1,112',
-  //                       style: TextStyle(
-  //                           color: Colors.white,
-  //                           fontSize: 22,
-  //                           fontWeight: FontWeight.bold),
-  //                     ),
-  //                     Text(
-  //                       'kcal',
-  //                       style: TextStyle(
-  //                         color: Colors.white,
-  //                         fontSize: 12,
-  //                       ),
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //         )
-  //       ],
-  //     ),
-  //   );
-  // }
+class statsdata extends StatelessWidget {
+  const statsdata({
+    Key? key,
+  }) : super(key: key);
 
-  Widget _macronutrients() {
+  @override
+  Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _macronutrientsTile(
-            title: 'Carbs', percentValue: 0.4, amountInGram: '14/323g'),
-        _macronutrientsTile(
-            title: 'Proteins', percentValue: 0.8, amountInGram: '14/129g'),
-        _macronutrientsTile(
-            title: 'Fats', percentValue: 0.6, amountInGram: '14/85g')
+        Container(
+          height: 300,
+          color: maincolor,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              color: Colors.white,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          color: Colors.transparent,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                child: statisticsTile(
+                  unitName: "Kcals",
+                  title: 'Intaked',
+                  icon: FaIcon(
+                    FontAwesomeIcons.pizzaSlice,
+                    color: Colors.orange,
+                  ),
+                  progressColor: Colors.blue,
+                  value: 589,
+                  progressPercent: 0.4,
+                ),
+              ),
+              Container(
+                child: statisticsTile(
+                  unitName: "Kcals",
+                  title: 'Burned',
+                  icon: FaIcon(
+                    FontAwesomeIcons.fire,
+                    color: Colors.red,
+                  ),
+                  progressColor: Colors.blue,
+                  value: 589,
+                  progressPercent: 0.4,
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
-    );
-  }
-
-  Widget _macronutrientsTile(
-      {String? title, double? percentValue, String? amountInGram}) {
-    return SizedBox(
-      height: 50,
-      width: 120,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title!,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-            ),
-          ),
-          LinearPercentIndicator(
-            width: 120,
-            animation: true,
-            lineHeight: 6,
-            animationDuration: 2500,
-            percent: percentValue!,
-            barRadius: Radius.circular(3),
-            progressColor: Colors.white,
-            padding: EdgeInsets.zero,
-            backgroundColor: Colors.white.withOpacity(0.2),
-          ),
-          Text(
-            amountInGram!,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void provideConsumedFoods() {
-    consumedFoods.add(
-      FoodConsumed(
-        foodName: 'Espresso coffe',
-        consumedAmount: '30 ml',
-        boxColor: maincolor,
-      ),
-    );
-
-    consumedFoods.add(
-      FoodConsumed(
-        foodName: 'Croissant',
-        consumedAmount: '100 g',
-        boxColor: maincolor,
-      ),
     );
   }
 }
