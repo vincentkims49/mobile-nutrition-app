@@ -72,6 +72,69 @@ class _GetmealsState extends State<Getmeals> {
     'Rice Eggs',
     'Nothing to show',
   ];
+  List lunchFats = [
+    100,
+    100,
+    100,
+    100,
+    0,
+  ];
+  List DinnerFats = [
+    100,
+    100,
+    100,
+    100,
+    0,
+  ];
+  List breakfastFats = [
+    100,
+    100,
+    100,
+    100,
+    0,
+  ];
+  List lunchProteins = [
+    100,
+    100,
+    100,
+    100,
+    0,
+  ];
+  List DinnerProteins = [
+    100,
+    100,
+    100,
+    100,
+    0,
+  ];
+  List breakfastProteins = [
+    100,
+    100,
+    100,
+    100,
+    0,
+  ];
+  List lunchCarbs = [
+    100,
+    100,
+    100,
+    100,
+    0,
+  ];
+  List DinnerCarbs = [
+    100,
+    100,
+    100,
+    100,
+    0,
+  ];
+  List breakfastCarbs = [
+    100,
+    100,
+    100,
+    100,
+    0,
+  ];
   @override
   void dispose() {
     _dinnerController1.dispose();
@@ -108,100 +171,114 @@ class _GetmealsState extends State<Getmeals> {
               ),
               Row(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      dinnerfunction();
-                      breakfastfunction();
-                      lunchfunction();
-                      final docUser = FirebaseFirestore.instance
-                          .collection("users")
-                          .doc(widget.documentId);
-                      docUser.update({
-                        "lunch_1": valueChooseLunch1,
-                        "lunch_2": valueChooseLunch2,
-                        "breakfast_1": valueChooseBreakfast1,
-                        "breakfast_2": valueChooseBreakfast2,
-                        "dinner_1": valueChooseDinner1,
-                        "dinner_2": valueChooseDinner2,
-                      });
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          dinnerfunction();
+                          breakfastfunction();
+                          lunchfunction();
 
-                      final snackBar = SnackBar(
-                        elevation: 0,
-                        behavior: SnackBarBehavior.floating,
-                        backgroundColor: Colors.transparent,
-                        content: AwesomeSnackbarContent(
-                          contentType: ContentType.success,
-                          message: 'Any data changes will be UPDATED!',
-                          title: 'Hello There!',
-                        ),
-                      );
-                      ScaffoldMessenger.of(context)
-                        ..hideCurrentSnackBar()
-                        ..showSnackBar(snackBar);
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: ((context) => Navigation())));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 50,
-                        width: 150,
-                        decoration: BoxDecoration(
-                          color: maincolor,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Text(
-                          'Update',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'ro',
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                          final docUser = FirebaseFirestore.instance
+                              .collection("users")
+                              .doc(widget.documentId);
+                          docUser.update({
+                            "lunch_1": valueChooseLunch1,
+                            "lunch_2": valueChooseLunch2,
+                            "breakfast_1": valueChooseBreakfast1,
+                            "breakfast_2": valueChooseBreakfast2,
+                            "dinner_1": valueChooseDinner1,
+                            "dinner_2": valueChooseDinner2,
+                          });
+
+                          final snackBar = SnackBar(
+                            elevation: 0,
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: Colors.transparent,
+                            content: AwesomeSnackbarContent(
+                              contentType: ContentType.success,
+                              // 'Total calories= ${totakcal} kcal\nRecommended daily calorie intake is 2,000 calories a day for women and 2,500 for men!. Please Update the amounts for healthy purpose.',
+
+                              message: 'Any data changes will be UPDATED!',
+                              title: 'Hello There!',
+                            ),
+                          );
+                          ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(snackBar);
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: ((context) => Navigation())));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 50,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              color: maincolor,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Text(
+                              'Update',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'ro',
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      final snackBar = SnackBar(
-                        elevation: 0,
-                        behavior: SnackBarBehavior.floating,
-                        backgroundColor: Colors.transparent,
-                        content: AwesomeSnackbarContent(
-                          contentType: ContentType.success,
-                          message: 'Any data changes will not be UPDATED!',
-                          title: 'Oh Snap!',
-                        ),
-                      );
-                      ScaffoldMessenger.of(context)
-                        ..hideCurrentSnackBar()
-                        ..showSnackBar(snackBar);
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: ((context) => Navigation())));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 50,
-                        width: 150,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Text(
-                          'Cancel',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'ro',
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          final snackBar = SnackBar(
+                            elevation: 0,
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: Colors.transparent,
+                            content: AwesomeSnackbarContent(
+                              contentType: ContentType.success,
+                              message: 'Any data changes will not be UPDATED!',
+                              title: 'Oh Snap!',
+                            ),
+                          );
+                          ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(snackBar);
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: ((context) => Navigation())));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 50,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'ro',
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 ],
               ),

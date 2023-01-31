@@ -118,7 +118,6 @@ class Getfood extends StatelessWidget {
                                 'kcal',
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontWeight: FontWeight.bold,
                                   fontSize: 12,
                                 ),
                               ),
@@ -175,7 +174,6 @@ class Getfood extends StatelessWidget {
                                           ' ${data['breakfastcontroller1']} grams',
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontWeight: FontWeight.bold,
                                             fontSize: 12,
                                           ),
                                         ),
@@ -223,7 +221,6 @@ class Getfood extends StatelessWidget {
                                           ' ${data['breakfastcontroller2']} grams',
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontWeight: FontWeight.bold,
                                             fontSize: 12,
                                           ),
                                         ),
@@ -280,7 +277,6 @@ class Getfood extends StatelessWidget {
                                 'kcal',
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontWeight: FontWeight.bold,
                                   fontSize: 12,
                                 ),
                               ),
@@ -337,7 +333,6 @@ class Getfood extends StatelessWidget {
                                           ' ${data['lunchcontroller1']} grams',
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontWeight: FontWeight.bold,
                                             fontSize: 12,
                                           ),
                                         ),
@@ -385,7 +380,6 @@ class Getfood extends StatelessWidget {
                                           ' ${data['lunchcontroller2']} grams',
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontWeight: FontWeight.bold,
                                             fontSize: 12,
                                           ),
                                         ),
@@ -442,7 +436,6 @@ class Getfood extends StatelessWidget {
                                 'kcal',
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontWeight: FontWeight.bold,
                                   fontSize: 12,
                                 ),
                               ),
@@ -499,7 +492,6 @@ class Getfood extends StatelessWidget {
                                           ' ${data['dinnerController1']} grams',
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontWeight: FontWeight.bold,
                                             fontSize: 12,
                                           ),
                                         ),
@@ -547,7 +539,6 @@ class Getfood extends StatelessWidget {
                                           ' ${data['dinnerController2']} grams',
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontWeight: FontWeight.bold,
                                             fontSize: 12,
                                           ),
                                         ),
@@ -561,10 +552,10 @@ class Getfood extends StatelessWidget {
                               height: 20,
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 2, right: 2),
+                              padding: const EdgeInsets.only(left: 0, right: 0),
                               child: Container(
                                 height: 80,
-                                margin: EdgeInsets.only(bottom: 10),
+                                margin: EdgeInsets.only(bottom: 5),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -628,6 +619,7 @@ class Getfood extends StatelessWidget {
                                         ],
                                       ),
                                     ),
+                                    
                                     GestureDetector(
                                       onTap: () {
                                         Navigator.of(context).push(
@@ -636,12 +628,12 @@ class Getfood extends StatelessWidget {
                                                     EditMeals())));
                                       },
                                       child: Container(
-                                        height: 60,
-                                        width: 60,
+                                        height: 40,
+                                        width: 40,
                                         decoration: BoxDecoration(
                                             color: maincolor,
                                             borderRadius:
-                                                BorderRadius.circular(20)),
+                                                BorderRadius.circular(10)),
                                         child: Icon(
                                           Icons.edit,
                                           color: Colors.white,
