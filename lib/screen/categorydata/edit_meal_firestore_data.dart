@@ -72,69 +72,7 @@ class _GetmealsState extends State<Getmeals> {
     'Rice Eggs',
     'Nothing to show',
   ];
-  List lunchFats = [
-    100,
-    100,
-    100,
-    100,
-    0,
-  ];
-  List DinnerFats = [
-    100,
-    100,
-    100,
-    100,
-    0,
-  ];
-  List breakfastFats = [
-    100,
-    100,
-    100,
-    100,
-    0,
-  ];
-  List lunchProteins = [
-    100,
-    100,
-    100,
-    100,
-    0,
-  ];
-  List DinnerProteins = [
-    100,
-    100,
-    100,
-    100,
-    0,
-  ];
-  List breakfastProteins = [
-    100,
-    100,
-    100,
-    100,
-    0,
-  ];
-  List lunchCarbs = [
-    100,
-    100,
-    100,
-    100,
-    0,
-  ];
-  List DinnerCarbs = [
-    100,
-    100,
-    100,
-    100,
-    0,
-  ];
-  List breakfastCarbs = [
-    100,
-    100,
-    100,
-    100,
-    0,
-  ];
+
   @override
   void dispose() {
     _dinnerController1.dispose();
@@ -349,7 +287,7 @@ class _GetmealsState extends State<Getmeals> {
             FilteringTextInputFormatter.allow(RegExp('[0-9]')),
             FilteringTextInputFormatter.digitsOnly,
           ],
-          maxLength: 3,
+          maxLength: 2,
           decoration: InputDecoration(
             icon: Icon(Icons.food_bank_outlined),
             hintText: 'Amount to be taken in grams',
@@ -405,7 +343,7 @@ class _GetmealsState extends State<Getmeals> {
             FilteringTextInputFormatter.allow(RegExp('[0-9]')),
             FilteringTextInputFormatter.digitsOnly,
           ],
-          maxLength: 3,
+          maxLength: 2,
           decoration: InputDecoration(
             icon: Icon(Icons.food_bank_outlined),
             hintText: 'Amount to be taken in grams',
@@ -474,7 +412,7 @@ class _GetmealsState extends State<Getmeals> {
             FilteringTextInputFormatter.allow(RegExp('[0-9]')),
             FilteringTextInputFormatter.digitsOnly,
           ],
-          maxLength: 3,
+          maxLength: 2,
           decoration: InputDecoration(
             icon: Icon(Icons.food_bank_outlined),
             hintText: 'Amount to be taken in grams',
@@ -530,7 +468,7 @@ class _GetmealsState extends State<Getmeals> {
             FilteringTextInputFormatter.allow(RegExp('[0-9]')),
             FilteringTextInputFormatter.digitsOnly,
           ],
-          maxLength: 3,
+          maxLength: 2,
           decoration: InputDecoration(
             icon: Icon(Icons.food_bank_outlined),
             hintText: 'Amount to be taken in grams',
@@ -599,7 +537,7 @@ class _GetmealsState extends State<Getmeals> {
             FilteringTextInputFormatter.allow(RegExp('[0-9]')),
             FilteringTextInputFormatter.digitsOnly,
           ],
-          maxLength: 3,
+          maxLength: 2,
           decoration: InputDecoration(
             icon: Icon(Icons.food_bank_outlined),
             hintText: 'Amount to be taken in grams',
@@ -655,7 +593,7 @@ class _GetmealsState extends State<Getmeals> {
             FilteringTextInputFormatter.allow(RegExp('[0-9]')),
             FilteringTextInputFormatter.digitsOnly,
           ],
-          maxLength: 3,
+          maxLength: 2,
           decoration: InputDecoration(
             icon: Icon(Icons.food_bank_outlined),
             hintText: 'Amount to be taken in grams',

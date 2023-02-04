@@ -53,33 +53,37 @@ class _CategoryState extends State<Category>
       ),
       body: Container(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(2.0),
           child: ListView(
             physics: BouncingScrollPhysics(),
             children: [
               SizedBox(
                 height: 10,
               ),
-              Text(
-                'Today,',
-                style: TextStyle(
-                    color: Color.fromARGB(255, 75, 73, 73),
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 7),
-              Text(
-                formattedDate,
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold),
+              Column(
+                children: [
+                  Text(
+                    'Today,',
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 75, 73, 73),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 7),
+                  Text(
+                    formattedDate,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
               SizedBox(
-                height: 15,
+                height: 2,
               ),
               SizedBox(
-                height: 380,
+                height: 680,
                 child: FutureBuilder(
                   future: getDocId(),
                   builder: (context, snapshot) {

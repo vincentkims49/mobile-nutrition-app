@@ -34,21 +34,7 @@ class Getfood extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            'Please click',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            ' here ',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            'to Start',
+                            '',
                             style: TextStyle(
                                 color: Colors.blue,
                                 fontSize: 18,
@@ -115,7 +101,7 @@ class Getfood extends StatelessWidget {
                               ),
                               SizedBox(width: 1),
                               Text(
-                                'kcal',
+                                'grams',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 12,
@@ -274,7 +260,7 @@ class Getfood extends StatelessWidget {
                               ),
                               SizedBox(width: 1),
                               Text(
-                                'kcal',
+                                'grams',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 12,
@@ -433,7 +419,7 @@ class Getfood extends StatelessWidget {
                               ),
                               SizedBox(width: 1),
                               Text(
-                                'kcal',
+                                'grams',
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 12,
@@ -573,7 +559,7 @@ class Getfood extends StatelessWidget {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                'Remaining',
+                                                'Total amount of food',
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 15,
@@ -594,7 +580,7 @@ class Getfood extends StatelessWidget {
                                                     width: 5,
                                                   ),
                                                   Text(
-                                                    'kcal',
+                                                    'grams',
                                                     style: TextStyle(
                                                       color: Colors.black,
                                                       fontSize: 12,
@@ -609,7 +595,7 @@ class Getfood extends StatelessWidget {
                                             animation: true,
                                             lineHeight: 6,
                                             animationDuration: 2500,
-                                            percent: totakcal.toDouble() / 5994,
+                                            percent: totakcal.toDouble() / 594,
                                             barRadius: Radius.circular(3),
                                             progressColor: Colors.blue,
                                             padding: EdgeInsets.zero,
@@ -619,7 +605,6 @@ class Getfood extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    
                                     GestureDetector(
                                       onTap: () {
                                         Navigator.of(context).push(
