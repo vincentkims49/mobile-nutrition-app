@@ -11,3 +11,6 @@
 
 
 ### <p>Uses <b> Flutter</b> as the programming language and <b>Firebase</b> as the storage location.</p>
+## Screenshots
+
+<img height="200em"   src="https://github.com/vincentkims49/vincentkims49/mobile-nutrition-app/main/code.gif" align="center" style="width: 5 height: 10" />
