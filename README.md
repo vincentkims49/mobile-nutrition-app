@@ -1,6 +1,6 @@
 # Mobile Nutrition application
 
-A simple Flutter project.
+A simple new Flutter project.
 
 ## Getting Started
 
