@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:recipe/screen/consent/colors.dart';
 import 'package:recipe/screen/screens/sidebar.dart';
 import 'package:recipe/screen/search/recipe.dart';
@@ -42,7 +43,6 @@ class _SearchState extends State<Search> {
               child: TextField(
                 controller: myController,
                 decoration: InputDecoration(
-                  icon: Icon(Icons.search),
                   hintText: 'Search here',
                   hintStyle: TextStyle(fontFamily: 'ro'),
                   border: OutlineInputBorder(
@@ -75,7 +75,7 @@ class _SearchState extends State<Search> {
                           child: Container(
                             child: ListTile(
                               title: Text(recipe.title),
-                              tileColor: Colors.red[100],
+                              tileColor: Colors.blue[50],
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
@@ -90,9 +90,10 @@ class _SearchState extends State<Search> {
                       );
                     },
                   )
-                : Text(
-                    "No results found",
-                    style: TextStyle(fontSize: 20),
+                : Lottie.asset(
+                    'images/empty.json',
+                    width: 300,
+                    height: 300,
                   ),
           ),
         ],

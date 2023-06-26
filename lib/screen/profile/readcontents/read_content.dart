@@ -104,6 +104,7 @@ class GetData extends StatelessWidget {
                             backgroundColor: Colors.transparent,
                             content: AwesomeSnackbarContent(
                               contentType: ContentType.success,
+                              color: Colors.red,
                               message: 'Any image changes will be UPDATED!',
                               title: 'Hello There!',
                             ),
@@ -238,6 +239,7 @@ class GetData extends StatelessWidget {
                     behavior: SnackBarBehavior.floating,
                     backgroundColor: Colors.transparent,
                     content: AwesomeSnackbarContent(
+                      color: Colors.red,
                       contentType: ContentType.success,
                       message: 'Any data changes will be UPDATED!',
                       title: 'Hello There!',

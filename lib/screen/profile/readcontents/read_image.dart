@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:recipe/screen/consent/colors.dart';
 import 'package:recipe/screen/profile/contactus.dart';
 import 'package:recipe/screen/profile/edit_profila_page.dart';
@@ -234,7 +235,31 @@ class GetImage extends StatelessWidget {
             ],
           );
         } else {
-          return Text('');
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 1000,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SpinKitCubeGrid(
+                      itemBuilder: (BuildContext context, int index) {
+                        return DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: index.isEven
+                                ? Colors.blueAccent
+                                : Colors.blueAccent,
+                          ),
+                        );
+                      },
+                      size: 50,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
         }
       }),
     );

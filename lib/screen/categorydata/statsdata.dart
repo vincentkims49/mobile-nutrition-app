@@ -1,6 +1,10 @@
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+// ignore_for_file: must_be_immutable
+
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:recipe/screen/categorydata/detailed_meal_consumed.dart';
@@ -8,63 +12,71 @@ import 'package:recipe/screen/categorydata/edit_meals.dart';
 
 import 'package:recipe/screen/consent/colors.dart';
 
-class statsdata extends StatelessWidget {
-  const statsdata({
+class statsdata extends StatefulWidget {
+  statsdata({
     Key? key,
     required this.documentId,
   }) : super(key: key);
   final String documentId;
 
   @override
+  State<statsdata> createState() => _statsdataState();
+}
+
+class _statsdataState extends State<statsdata> {
+  List texts = [
+    "Eat a variety of food.     Cut back on salt.     Reduce use of certain fats and oil.     Limit sugar intake.     Avoid hazardous and harmful alcohol use.",
+    "Tap for more"
+  ];
+
+  @override
   Widget build(BuildContext context) {
     CollectionReference user = FirebaseFirestore.instance.collection('users');
     return FutureBuilder<DocumentSnapshot>(
-      future: user.doc(documentId).get(),
+      future: user.doc(widget.documentId).get(),
       builder: ((context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
           if (data['dinnertotal'] == null) {
             return Container(
-              height: 15,
-              child: ListView(
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0, left: 10),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: ((context) => EditMeals())));
-                      },
-                      child: Row(
-                        children: [
-                          Text(
-                            'Please click',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            ' here ',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            'to Start',
-                            style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
+              height: 680,
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0, left: 10),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: ((context) => EditMeals())));
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Please click',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          ' here ',
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          'to Start',
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ),
-                ],
+                ),
               ),
             );
           } else {
@@ -91,7 +103,7 @@ class statsdata extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        if (nowTime.hour > 12 && nowTime.hour < 19)
+                        if (nowTime.hour >= 12 && nowTime.hour < 19)
                           Text(
                             'GoodAfternoon,',
                             style: TextStyle(
@@ -107,7 +119,7 @@ class statsdata extends StatelessWidget {
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold),
                           ),
-                        if (nowTime.hour >= 0 && nowTime.hour < 13)
+                        if (nowTime.hour >= 0 && nowTime.hour < 12)
                           Text(
                             'GoodMorning,',
                             style: TextStyle(
@@ -210,7 +222,7 @@ class statsdata extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              ' select ',
+                              ' edit ',
                               style: TextStyle(
                                 color: Colors.blue,
                                 fontSize: 16,
@@ -227,13 +239,90 @@ class statsdata extends StatelessWidget {
                         ),
                       ),
                     ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.lightbulb,
+                          color: Colors.black,
+                        ),
+                        Text(
+                          'Tips',
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.info,
+                          animType: AnimType.rightSlide,
+                          headerAnimationLoop: false,
+                          title: 'Tips',
+                          desc: texts.first,
+                          btnOkOnPress: () {},
+                          btnOkColor: Colors.red,
+                        ).show();
+                      },
+                      child: Container(
+                        height: 15,
+                        color: Colors.orange,
+                        child: CarouselSlider.builder(
+                          itemCount: texts.length,
+                          options: CarouselOptions(
+                            height: 20,
+                            viewportFraction: 6,
+                            initialPage: 0,
+                            enableInfiniteScroll: true,
+                            autoPlay: true,
+                            autoPlayInterval: Duration(milliseconds: 2000),
+                            autoPlayAnimationDuration:
+                                Duration(milliseconds: 10000),
+                            autoPlayCurve: Curves.easeInCirc,
+                            enlargeCenterPage: false,
+                            scrollDirection: Axis.horizontal,
+                          ),
+                          itemBuilder:
+                              (BuildContext context, int index, int realIndex) {
+                            return Text(texts[index],
+                                style: TextStyle(
+                                  fontSize: 15,
+                                ));
+                          },
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
             );
           }
         } else {
-          return Text('');
+          return Column(
+            children: [
+              Container(
+                height: 680,
+                child: Center(
+                  child: SpinKitCubeGrid(
+                    itemBuilder: (BuildContext context, int index) {
+                      return DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: index.isEven
+                              ? Colors.blueAccent
+                              : Colors.blueAccent,
+                        ),
+                      );
+                    },
+                    size: 50,
+                  ),
+                ),
+              ),
+            ],
+          );
         }
       }),
     );
@@ -548,22 +637,7 @@ class StatsContainer extends StatelessWidget {
                             ),
                             if (allTotal > 2700)
                               InkWell(
-                                onTap: () {
-                                  final snackBar = SnackBar(
-                                    elevation: 0,
-                                    behavior: SnackBarBehavior.floating,
-                                    backgroundColor: Colors.transparent,
-                                    content: AwesomeSnackbarContent(
-                                      contentType: ContentType.success,
-                                      message:
-                                          'Recommended daily calorie intakes is around 2,700 for men and 2,000 for women!',
-                                      title: 'Attention!',
-                                    ),
-                                  );
-                                  ScaffoldMessenger.of(context)
-                                    ..hideCurrentSnackBar()
-                                    ..showSnackBar(snackBar);
-                                },
+                                onTap: () {},
                                 child: RotatedBox(
                                   quarterTurns: 0,
                                   child: LinearPercentIndicator(
@@ -601,6 +675,7 @@ class StatsContainer extends StatelessWidget {
                     ],
                   ),
                 ),
+                //Tips
               ],
             ),
           ),

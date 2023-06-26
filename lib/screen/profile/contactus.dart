@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe/screen/consent/appbar.dart';
 import 'package:recipe/screen/consent/colors.dart';
 import 'package:recipe/screen/consent/navigation.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 class Contactus extends StatelessWidget {
   Contactus({super.key});
@@ -93,53 +94,48 @@ class Contactus extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 if (emailController.text.isEmpty) {
-                  final snackBar = SnackBar(
-                    elevation: 0,
-                    behavior: SnackBarBehavior.floating,
-                    backgroundColor: Colors.transparent,
-                    content: AwesomeSnackbarContent(
-                      contentType: ContentType.success,
-                      message: 'Please fill the empty fields!.',
-                      title: 'Oh Snap!',
-                    ),
-                  );
-                  ScaffoldMessenger.of(context)
-                    ..hideCurrentSnackBar()
-                    ..showSnackBar(snackBar);
+                  AwesomeDialog(
+                    context: context,
+                    dialogType: DialogType.warning,
+                    animType: AnimType.rightSlide,
+                    headerAnimationLoop: false,
+                    title: 'Oh Snap!',
+                    desc: 'Please fill the empty fields!.',
+                    btnOkOnPress: () {},
+                    btnOkIcon: Icons.cancel,
+                    btnOkColor: Colors.red,
+                  ).show();
                 } else if (emailController.text.trim() != thisUser.email) {
-                  final snackBar = SnackBar(
-                    elevation: 0,
-                    behavior: SnackBarBehavior.floating,
-                    backgroundColor: Colors.transparent,
-                    content: AwesomeSnackbarContent(
-                      contentType: ContentType.success,
-                      message: 'Please use the email that you signed up with.',
-                      title: 'Oh Snap!',
-                    ),
-                  );
-                  ScaffoldMessenger.of(context)
-                    ..hideCurrentSnackBar()
-                    ..showSnackBar(snackBar);
+                  AwesomeDialog(
+                    context: context,
+                    dialogType: DialogType.warning,
+                    animType: AnimType.rightSlide,
+                    headerAnimationLoop: false,
+                    title: 'Oh Snap!',
+                    desc: 'Please use the email that you signed up with.',
+                    btnOkOnPress: () {},
+                    btnOkIcon: Icons.cancel,
+                    btnOkColor: Colors.red,
+                  ).show();
                 } else if (smsController.text.isEmpty) {
-                  final snackBar = SnackBar(
-                    elevation: 0,
-                    behavior: SnackBarBehavior.floating,
-                    backgroundColor: Colors.transparent,
-                    content: AwesomeSnackbarContent(
-                      contentType: ContentType.success,
-                      message: 'Please fill the empty fields!.',
-                      title: 'Oh Snap!',
-                    ),
-                  );
-                  ScaffoldMessenger.of(context)
-                    ..hideCurrentSnackBar()
-                    ..showSnackBar(snackBar);
+                  AwesomeDialog(
+                    context: context,
+                    dialogType: DialogType.warning,
+                    animType: AnimType.rightSlide,
+                    headerAnimationLoop: false,
+                    title: 'Oh Snap!',
+                    desc: 'Please fill the empty fields!.',
+                    btnOkOnPress: () {},
+                    btnOkIcon: Icons.cancel,
+                    btnOkColor: Colors.red,
+                  ).show();
                 } else {
                   final snackBar = SnackBar(
                     elevation: 0,
                     behavior: SnackBarBehavior.floating,
                     backgroundColor: Colors.transparent,
                     content: AwesomeSnackbarContent(
+                      color: Colors.red,
                       contentType: ContentType.success,
                       message:
                           'Thank you for contactig us. Your message will be reviewed within 1 to 2 business days!',

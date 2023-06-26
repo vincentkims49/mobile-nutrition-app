@@ -135,6 +135,8 @@ class _GetmealsState extends State<Getmeals> {
                             backgroundColor: Colors.transparent,
                             content: AwesomeSnackbarContent(
                               contentType: ContentType.success,
+                                                    color: Colors.red,
+
                               // 'Total calories= ${totakcal} kcal\nRecommended daily calorie intake is 2,000 calories a day for women and 2,500 for men!. Please Update the amounts for healthy purpose.',
 
                               message: 'Any data changes will be UPDATED!',
@@ -179,11 +181,14 @@ class _GetmealsState extends State<Getmeals> {
                       GestureDetector(
                         onTap: () {
                           final snackBar = SnackBar(
+                            
                             elevation: 0,
                             behavior: SnackBarBehavior.floating,
                             backgroundColor: Colors.transparent,
                             content: AwesomeSnackbarContent(
                               contentType: ContentType.success,
+                                                    color: Colors.red,
+
                               message: 'Any data changes will not be UPDATED!',
                               title: 'Oh Snap!',
                             ),

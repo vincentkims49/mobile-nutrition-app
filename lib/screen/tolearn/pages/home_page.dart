@@ -85,7 +85,6 @@ class _HomePageState extends State<ToLearn> {
               onTap: () {},
               child: CircleAvatar(
                 radius: 18,
-                backgroundImage: AssetImage('images/calimage.jpg'),
               ),
             ),
           ),

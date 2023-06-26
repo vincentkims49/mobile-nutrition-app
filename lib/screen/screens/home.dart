@@ -1,10 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:recipe/screen/consent/colors.dart';
 import 'package:recipe/screen/fav/provider/favorite_provider.dart';
-import 'package:recipe/screen/home/appbanner.dart';
-import 'package:recipe/screen/home/banner_itmes.dart';
-import 'package:recipe/screen/home/indicator.dart';
+
 import 'package:recipe/screen/recipes/dinner/dinner_burger.dart';
 import 'package:recipe/screen/recipes/dinner/dinner_cheesepie.dart';
 import 'package:recipe/screen/recipes/dinner/dinner_grilledmeat.dart';
@@ -17,8 +14,10 @@ import 'package:recipe/screen/recipes/lunch/lunch_burger.dart';
 import 'package:recipe/screen/recipes/lunch/lunch_pasta.dart';
 import 'package:recipe/screen/recipes/lunch/lunch_pizza.dart';
 import 'package:recipe/screen/recipes/lunch/lunch_steak.dart';
-
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:recipe/screen/screens/sidebar.dart';
+
+import '../tolearn/pages/home_page.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -28,8 +27,20 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<String> images = [
+    'images/1c.jpg',
+    'images/2c.jpg',
+    'images/3c.jpg',
+    'images/4c.jpg',
+    'images/5c.jpg',
+    'images/6c.jpg',
+  ];
+  List texts = [
+    "The application allows the you to create an account and set your profile.        The application allows the you to enter your daily cooking activities that you wish to practice or learn.         The application gives the stats of nutrients consumed by you today .        The application gives recipes for meals chosen by you.        The application allows the you to select your day meals(Breakfast, Lunch and Supper).",
+    " "
+  ];
   int indexx = 0;
-  List category = ['Lunch', 'Dinner', 'Breackfast'];
+  List category = ['Lunch', 'Dinner', 'Breakfast'];
   List categoryname = ['lunch', 'dinner', 'fast'];
   List food = [
     ['Pizza', 'Steak', 'Pasta', 'Burger'],
@@ -56,7 +67,6 @@ class _HomeState extends State<Home> {
     ],
     [Pancake_fast(), Eggcurry_fast(), Bananachips_fast(), Riceeggs_fast()],
   ];
-  var _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     final provider = FavoriteProvider.of(context);
@@ -79,15 +89,18 @@ class _HomeState extends State<Home> {
           slivers: [
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, top: 20, bottom: 5),
                 child: Column(
                   children: [
-                    Text('Welcome,',
-                        style: TextStyle(
-                          fontSize: 25,
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                        )),
+                    Text(
+                      'Welcome,',
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     Text(
                       'To Mobile Nutrition App',
                       style: TextStyle(
@@ -107,48 +120,69 @@ class _HomeState extends State<Home> {
                   children: [
                     Container(
                       margin: EdgeInsets.symmetric(vertical: 10.0),
-                      height: 180,
-                      child: PageView.builder(
-                        onPageChanged: (index) {
-                          setState(() {
-                            _selectedIndex = index;
-                          });
-                        },
-                        controller: PageController(viewportFraction: 0.7),
-                        itemCount: appBannerList.length,
-                        itemBuilder: (context, index) {
-                          var banner = appBannerList[index];
-                          var _scale = _selectedIndex == index ? 1.0 : 0.8;
-                          return TweenAnimationBuilder(
-                            duration: Duration(milliseconds: 350),
-                            tween: Tween(begin: _scale, end: _scale),
-                            curve: Curves.ease,
-                            child: BannerItem(
-                              appBanner: banner,
+                      height: 225,
+                      child: Column(
+                        children: [
+                          CarouselSlider.builder(
+                            itemCount: texts.length,
+                            options: CarouselOptions(
+                              height: 20,
+                              viewportFraction: 6,
+                              initialPage: 0,
+                              enableInfiniteScroll: true,
+                              autoPlay: true,
+                              autoPlayInterval: Duration(milliseconds: 2000),
+                              autoPlayAnimationDuration:
+                                  Duration(milliseconds: 10000),
+                              autoPlayCurve: Curves.easeInCirc,
+                              enlargeCenterPage: false,
+                              scrollDirection: Axis.horizontal,
                             ),
-                            builder: (context, value, child) {
-                              // ignore: unnecessary_null_comparison
-                              assert(value != null);
-                              return Transform.scale(
-                                scale: value,
-                                child: child,
+                            itemBuilder: (BuildContext context, int index,
+                                int realIndex) {
+                              return Text(texts[index],
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                  ));
+                            },
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          CarouselSlider.builder(
+                            itemCount: images.length,
+                            options: CarouselOptions(
+                              height: 200,
+                              aspectRatio: 16 / 9,
+                              viewportFraction: 0.8,
+                              initialPage: 0,
+                              enableInfiniteScroll: false,
+                              reverse: false,
+                              autoPlay: true,
+                              autoPlayInterval: Duration(seconds: 5),
+                              autoPlayAnimationDuration:
+                                  Duration(milliseconds: 1000),
+                              autoPlayCurve: Curves.easeIn,
+                              enlargeCenterPage: true,
+                              enlargeFactor: 0.4,
+                              scrollDirection: Axis.horizontal,
+                            ),
+                            itemBuilder: (BuildContext context, int index,
+                                int realIndex) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(images[index]),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
                               );
                             },
-                          );
-                        },
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ...List.generate(
-                          appBannerList.length,
-                          (index) => Indicator(
-                            isActive: _selectedIndex == index ? true : false,
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -301,7 +335,7 @@ class _HomeState extends State<Home> {
                               ),
                               child: Container(
                                 height: 120,
-                                width: 120,
+                                width: 130,
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     image: AssetImage(
@@ -361,6 +395,66 @@ class _HomeState extends State<Home> {
                   mainAxisExtent: 270,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, top: 20, bottom: 5),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Found a great recipe and you want to learn it later?',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Add it to your tasks below,',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 30),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: ((context) => ToLearn())));
+                        },
+                        child: Container(
+                          height: 30,
+                          color: Colors.blue,
+                          child: Center(
+                            child: Text(
+                              'Add to tasks',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),

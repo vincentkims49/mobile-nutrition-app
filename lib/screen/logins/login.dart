@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:recipe/screen/consent/colors.dart';
 import 'package:recipe/screen/logins/forgot_pass.dart';
+import 'package:lottie/lottie.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Login extends StatefulWidget {
   final VoidCallback showSignUpPage;
@@ -25,7 +28,16 @@ class _LoginState extends State<Login> {
       context: context,
       builder: (context) {
         return Center(
-          child: CircularProgressIndicator(),
+          child: SpinKitCubeGrid(
+            itemBuilder: (BuildContext context, int index) {
+              return DecoratedBox(
+                decoration: BoxDecoration(
+                  color: index.isEven ? Colors.white : Colors.white,
+                ),
+              );
+            },
+            size: 50,
+          ),
         );
       },
     );
@@ -39,14 +51,17 @@ class _LoginState extends State<Login> {
     } on FirebaseAuthException catch (e) {
       Navigator.of(context).pop();
       print(e);
-      showDialog(
+      AwesomeDialog(
         context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: Text(e.message.toString()),
-          );
-        },
-      );
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        headerAnimationLoop: false,
+        title: 'Error',
+        desc: e.message.toString(),
+        btnOkOnPress: () {},
+        btnOkIcon: Icons.cancel,
+        btnOkColor: Colors.red,
+      ).show();
     }
   }
 
@@ -122,11 +137,12 @@ class _LoginState extends State<Login> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.android,
-                  size: 120,
+                Lottie.asset(
+                  'images/reg.json',
+                  width: 300,
+                  height: 300,
+                  fit: BoxFit.fill,
                 ),
-                SizedBox(height: 50),
                 Center(
                   child: Text(
                     'Hello Again!',

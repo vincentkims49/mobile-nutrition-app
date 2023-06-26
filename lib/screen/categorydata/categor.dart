@@ -15,8 +15,7 @@ class Category extends StatefulWidget {
   State<Category> createState() => _CategoryState();
 }
 
-class _CategoryState extends State<Category>
-    with SingleTickerProviderStateMixin {
+class _CategoryState extends State<Category> {
   List<String> docIDs = [];
   Future getDocId() async {
     await FirebaseFirestore.instance
@@ -65,7 +64,7 @@ class _CategoryState extends State<Category>
                   Text(
                     'Today,',
                     style: TextStyle(
-                        color: Color.fromARGB(255, 75, 73, 73),
+                        color: Colors.orange,
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
@@ -83,7 +82,7 @@ class _CategoryState extends State<Category>
                 height: 2,
               ),
               SizedBox(
-                height: 680,
+                height: 720,
                 child: FutureBuilder(
                   future: getDocId(),
                   builder: (context, snapshot) {

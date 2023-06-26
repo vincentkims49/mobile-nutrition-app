@@ -3,6 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:recipe/screen/consent/colors.dart';
+import 'package:lottie/lottie.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class SignUp extends StatefulWidget {
   final VoidCallback showLoginPage;
@@ -27,7 +30,16 @@ class _SignUpState extends State<SignUp> {
       context: context,
       builder: (context) {
         return Center(
-          child: CircularProgressIndicator(),
+          child: SpinKitCubeGrid(
+            itemBuilder: (BuildContext context, int index) {
+              return DecoratedBox(
+                decoration: BoxDecoration(
+                  color: index.isEven ? Colors.white : Colors.white,
+                ),
+              );
+            },
+            size: 50,
+          ),
         );
       },
     );
@@ -53,14 +65,17 @@ class _SignUpState extends State<SignUp> {
     } on FirebaseAuthException catch (e) {
       Navigator.of(context).pop();
       print(e);
-      showDialog(
+      AwesomeDialog(
         context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: Text(e.message.toString()),
-          );
-        },
-      );
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        headerAnimationLoop: false,
+        title: 'Error',
+        desc: e.message.toString(),
+        btnOkOnPress: () {},
+        btnOkIcon: Icons.cancel,
+        btnOkColor: Colors.red,
+      ).show();
     }
   }
 
@@ -70,7 +85,6 @@ class _SignUpState extends State<SignUp> {
     String email,
     String url,
     String uid,
-    
   ) async {
     await FirebaseFirestore.instance
         .collection('users')
@@ -115,18 +129,23 @@ class _SignUpState extends State<SignUp> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.android,
-                  size: 100,
-                ),
-                SizedBox(height: 10),
                 Center(
-                  child: Text(
-                    'Hello There!',
-                    style: GoogleFonts.bebasNeue(
-                      color: Colors.red,
-                      fontSize: 50,
-                    ),
+                  child: Column(
+                    children: [
+                      Lottie.asset(
+                        'images/hello.json',
+                        width: 300,
+                        height: 300,
+                        fit: BoxFit.fill,
+                      ),
+                      Text(
+                        'Hello There!',
+                        style: GoogleFonts.bebasNeue(
+                          color: Colors.red,
+                          fontSize: 50,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Text("Register below by providing your details"),
