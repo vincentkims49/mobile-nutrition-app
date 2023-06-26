@@ -18,7 +18,7 @@ dependencies:
   flutter_slidable: ^2.0.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-
+  
   
   
 
@@ -36,6 +36,10 @@ dependencies:
   flutter_screenutil: ^5.6.0
   percent_indicator: ^4.2.2
   font_awesome_flutter: ^10.3.0
+  carousel_slider: ^4.2.1
+  lottie: ^2.3.2
+  awesome_dialog: ^3.0.2
+  flutter_spinkit: ^5.1.0
   
 
 dev_dependencies:
